@@ -1,8 +1,8 @@
 /*
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
- * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-01 16:05:07
+ * @LastEditors: ph4nt0mer rootphantomy@hotmail.com
+ * @LastEditTime: 2022-09-01 22:50:21
  * @FilePath: /quake_go/quake_go.go
  * @Description:
  *
@@ -28,8 +28,6 @@ func main() {
 	flag.StringVar(&token, "token", "", "token Sting value")
 
 	flag.Parse()
-
-	// fmt.Println()
 
 	if len(os.Args) == 1 {
 		fmt.Println(`example:
@@ -57,7 +55,7 @@ Usage of ./quake_go:
 	case "info":
 		apis.InfoGet(token)
 	case "server":
-		apis.ServePost(query, start, size, token)
+		apis.SearchServicePost(query, start, size, token)
 	case "host":
 		fmt.Println("主机数据接口待完成。。。")
 	case "favicon":
