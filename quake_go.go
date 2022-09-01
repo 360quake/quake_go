@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-01 15:59:24
+ * @LastEditTime: 2022-09-01 16:05:07
  * @FilePath: /quake_go/quake_go.go
  * @Description:
  *
@@ -56,8 +56,7 @@ Usage of ./quake_go:
 	switch strings.ToLower(model) {
 	case "info":
 		apis.InfoGet(token)
-	case "serve":
-		fmt.Println("服务数据接口")
+	case "server":
 		apis.ServePost(query, start, size, token)
 	case "host":
 		fmt.Println("主机数据接口待完成。。。")
@@ -66,7 +65,6 @@ Usage of ./quake_go:
 	default:
 		fmt.Println("model参数错误")
 	}
-
 }
 
 func Init() {
