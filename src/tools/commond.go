@@ -2,8 +2,8 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 10:49:31
  * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-01 15:35:24
- * @FilePath: /quake_go/src/tools/api.go
+ * @LastEditTime: 2022-09-01 16:05:44
+ * @FilePath: /quake_go/src/tools/commond.go
  * @Description:
  *
  * Copyright (c) 2022 by ph4nt0mer, All Rights Reserved.
@@ -40,6 +40,7 @@ func ApisPost(url string, payload string, start string, size string, token strin
 		fmt.Println(err)
 		return
 	}
+	fmt.Println("result:")
 	fmt.Println(string(body))
 }
 func ApisGet(url string, token string) {
@@ -64,5 +65,6 @@ func ApisGet(url string, token string) {
 		fmt.Println(err)
 		return
 	}
+	fmt.Println("result:")
 	fmt.Println(string(body))
 }
