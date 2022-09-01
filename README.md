@@ -1,3 +1,3 @@
 # quake_go
 
-Command line tools written in golang
+quake command line tools written in golang
