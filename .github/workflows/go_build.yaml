@@ -1,89 +1,31 @@
-# .github/workflows/release.yaml
+name: golang_build_create
+on:
+  push:
+    tags:
+      - "v*"
 
-on: release
-name: Build Release
 jobs:
-  release-linux-386:
-    name: release linux/386
+  releases-matrix:
+    name: Release Go Binary
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        goos: [linux, windows, darwin]
+        goarch: ["386", amd64, arm64]
+        exclude:
+          - goarch: "386"
+            goos: darwin
+          - goarch: arm64
+            goos: windows
     steps:
-      - uses: actions/checkout@master
-      - name: compile and release
-        uses: ngs/go-release.action@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOARCH: "386"
-          GOOS: linux
-          EXTRA_FILES: "LICENSE"
-  release-linux-amd64:
-    name: release linux/amd64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: compile and release
-        uses: ngs/go-release.action@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOARCH: amd64
-          GOOS: linux
-          EXTRA_FILES: "LICENSE"
-  release-linux-arm:
-    name: release linux/386
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: compile and release
-        uses: ngs/go-release.action@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOARCH: "arm"
-          GOOS: linux
-          EXTRA_FILES: "LICENSE"
-  release-linux-arm64:
-    name: release linux/amd64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: compile and release
-        uses: ngs/go-release.action@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOARCH: arm64
-          GOOS: linux
-          EXTRA_FILES: "LICENSE"
-  release-darwin-amd64:
-    name: release darwin/amd64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: compile and release
-        uses: ngs/go-release.action@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOARCH: amd64
-          GOOS: darwin
-          EXTRA_FILES: "LICENSE"
-  release-windows-386:
-    name: release windows/386
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: compile and release
-        uses: ngs/go-release.action@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOARCH: "386"
-          GOOS: windows
-          EXTRA_FILES: "LICENSE"
-  release-windows-amd64:
-    name: release windows/amd64
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: compile and release
-        uses: ngs/go-release.action@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GOARCH: amd64
-          GOOS: windows
-          EXTRA_FILES: "LICENSE"
+      - uses: actions/checkout@v3
+      - uses: wangyoucao577/go-release-action@v1.30
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: "https://dl.google.com/go/go1.18.linux-amd64.tar.gz"
+          project_path: "."
+          binary_name: "test-binary"
+          extra_files: README.md
