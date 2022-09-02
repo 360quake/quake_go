@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-02 10:04:52
+ * @LastEditTime: 2022-09-02 15:43:25
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -24,7 +24,7 @@ func main() {
 	flag.StringVar(&size, "size", "10", "size String value")
 	flag.StringVar(&start, "start", "0", "start String value")
 	flag.StringVar(&query, "query", "", "query String value")
-	flag.StringVar(&model, "model", "info", "model String value,example: server,info")
+	flag.StringVar(&model, "model", "", "model String value,example: server,info")
 	flag.StringVar(&token, "token", "", "token Sting value")
 
 	flag.Parse()
