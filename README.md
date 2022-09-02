@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-02 15:39:04
+ * @LastEditTime: 2022-09-02 15:42:38
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -32,3 +32,23 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
 - 2022-09-01 v1.0:
   - 新增 info 接口功能
   - 新增 service 接口功能
+
+## 使用
+
+```bash
+Starting Quake Cli...
+example:
+ ./quake -token=<token> -model=<model> -query=<query>
+
+Usage of ./quake_go:
+  -model string
+        model String value
+  -query string
+        query String value
+  -size string
+        size String value (default "10")
+  -start string
+        start String value (default "0")
+  -token string
+        token Sting value
+```
