@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-02 15:51:36
+ * @LastEditTime: 2022-09-02 16:51:22
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -11,6 +11,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -19,7 +20,12 @@ import (
 )
 
 func main() {
-	Init()
+	test()
+
+}
+
+func Init() {
+	fmt.Println("Starting Quake Cli...")
 	var model, token, query, start, size string
 	flag.StringVar(&size, "size", "10", "size String value")
 	flag.StringVar(&start, "start", "0", "start String value")
@@ -65,6 +71,20 @@ Usage of ./quake_go:
 	}
 }
 
-func Init() {
-	fmt.Println("Starting Quake Cli...")
+type Server struct {
+	ServerName string // 首字母大写，首字母不敏感，其他字母敏感
+	ServerIP   string // 首字母大写
+}
+
+type Serverslice struct {
+	Servers []Server
+}
+
+func test() {
+	var s Serverslice
+	str := `{"servers":[{"serverName":"Local_Web","serverIP":"127.0.0.1"},{"serverName":"Local_DB","serverIP":"127.0.0.1"}]}`
+	json.Unmarshal([]byte(str), &s)
+
+	// 输出转换后第一条
+	fmt.Println(s.Servers[0])
 }
