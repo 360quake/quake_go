@@ -1,8 +1,8 @@
 /*
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
- * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-02 15:51:36
+ * @LastEditors: rootphantomer
+ * @LastEditTime: 2022-09-06 17:30:44
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -11,7 +11,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"quake/src/apis"
@@ -28,11 +27,19 @@ func Init() {
 	num := len(os.Args)
 	if num < 2 {
 		fmt.Println(`
-Usage of ./quake_go:
+Usage of ./quake:
+  init <token>
+		token initialization
+  info 
+        person infomation
+  query <string>
+        query string value
+  -t <string>
+        field string value(example:./quake query port:8088 -t=body)
   -size string
-        size String value (default "10")
+        size String value (default :./quake query port:8088 -size=10)
   -start string
-        start String value (default "0")`)
+        start String value (default :./quake query port:8088 -start=0)`)
 		return
 	}
 	path := "./config.yaml"
@@ -49,7 +56,22 @@ Usage of ./quake_go:
 		fmt.Println("!!!!please ./quake init token!!!!")
 		return
 	}
-	start, size := flaginit()
+	start := "0"
+	size := "10"
+	field := "ip,port"
+	for _, value := range os.Args {
+		tmp := strings.Split(value, "=")
+		if strings.Contains(tmp[0], "-start") {
+			start = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-size") {
+			size = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-t") {
+			field = tmp[1]
+		}
+	}
+
 	switch strings.ToLower(os.Args[1]) {
 	case "info":
 		apis.InfoGet(token.Token)
@@ -58,21 +80,14 @@ Usage of ./quake_go:
 			fmt.Println("!!!!query is empty !!!!")
 			return
 		}
-		apis.SearchServicePost(os.Args[2], start, size, token.Token)
+		apis.SearchServicePost(os.Args[2], start, size, token.Token, field)
 	case "host":
 		fmt.Println("主机数据接口待完成。。。")
 	case "favicon":
 		fmt.Println("favicon相似度接口待完成。。。")
+	case "domain":
+		fmt.Println("domain ")
 	default:
-		fmt.Println("model参数错误")
+		fmt.Println("args failed !!!!")
 	}
-}
-
-func flaginit() (string, string) {
-	var start, size string
-	flag.StringVar(&size, "size", "10", "size String value")
-	flag.StringVar(&start, "start", "0", "start String value")
-
-	flag.Parse()
-	return start, size
 }
