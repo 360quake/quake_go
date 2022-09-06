@@ -1,8 +1,8 @@
 /*
  * @Author: ph4nt0mer rootphantomy@hotmail.com
  * @Date: 2022-09-06 10:04:23
- * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-06 11:17:07
+ * @LastEditors: rootphantomer
+ * @LastEditTime: 2022-09-06 14:06:08
  * @FilePath: /quake_go/src/utils/YamlAction.go
  * @Description:读写yaml
  *
@@ -44,12 +44,11 @@ func checkError(err error) bool {
 	return false
 }
 
-func ReadYaml(path string) (TokenInfo, bool) {
+func ReadYaml(path string) (token TokenInfo, status bool) {
 	// 读取yaml里面的内容
 	content, err := ioutil.ReadFile(path)
-	status := checkError(err)
-	var token TokenInfo
+	status = checkError(err)
 	err = yaml.Unmarshal(content, &token)
 	status = checkError(err)
-	return token, status
+	return
 }

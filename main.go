@@ -1,8 +1,8 @@
 /*
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
- * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-02 15:51:36
+ * @LastEditors: rootphantomer
+ * @LastEditTime: 2022-09-06 14:08:47
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -28,7 +28,13 @@ func Init() {
 	num := len(os.Args)
 	if num < 2 {
 		fmt.Println(`
-Usage of ./quake_go:
+Usage of ./quake:
+  init <token>
+		token initialization
+  info 
+        person infomation
+  query <string>
+        query string
   -size string
         size String value (default "10")
   -start string
@@ -63,16 +69,17 @@ Usage of ./quake_go:
 		fmt.Println("主机数据接口待完成。。。")
 	case "favicon":
 		fmt.Println("favicon相似度接口待完成。。。")
+	case "domain":
+		fmt.Println("domain ")
 	default:
-		fmt.Println("model参数错误")
+		fmt.Println("args failed !!!!")
 	}
 }
 
-func flaginit() (string, string) {
-	var start, size string
+func flaginit() (start string, size string) {
 	flag.StringVar(&size, "size", "10", "size String value")
 	flag.StringVar(&start, "start", "0", "start String value")
 
 	flag.Parse()
-	return start, size
+	return
 }
