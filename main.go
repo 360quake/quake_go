@@ -15,47 +15,50 @@ import (
 	"fmt"
 	"os"
 	"quake/src/apis"
+	"quake/src/utils"
 	"strings"
 )
 
 func main() {
 	Init()
-	var model, token, query, start, size string
-	flag.StringVar(&size, "size", "10", "size String value")
-	flag.StringVar(&start, "start", "0", "start String value")
-	flag.StringVar(&query, "query", "", "query String value")
-	flag.StringVar(&model, "model", "", "model String value,example: server,info")
-	flag.StringVar(&token, "token", "", "token Sting value")
+}
 
-	flag.Parse()
-
-	if len(os.Args) == 1 {
-		fmt.Println(`example:
-	./quake -token=<token> -model=<model> -query=<query>`)
+func Init() {
+	fmt.Println("Starting Quake Cli...")
+	num := len(os.Args)
+	if num < 2 {
 		fmt.Println(`
 Usage of ./quake_go:
-  -model string
-        model String value (default "info")
-  -query string
-        query String value
   -size string
         size String value (default "10")
   -start string
-        start String value (default "0")
-  -token string
-        token Sting value`)
+        start String value (default "0")`)
 		return
 	}
-	if token == "" {
-		fmt.Println("!!!!token is empty!!!!")
+	path := "./config.yaml"
+	if strings.ToLower(os.Args[1]) == "init" {
+		if num < 3 {
+			fmt.Println("!!!!token is empty !!!!")
+			return
+		}
+		utils.WriteYaml(path, os.Args[2])
 		return
 	}
-
-	switch strings.ToLower(model) {
+	token, status := utils.ReadYaml(path)
+	if status {
+		fmt.Println("!!!!please ./quake init token!!!!")
+		return
+	}
+	start, size := flaginit()
+	switch strings.ToLower(os.Args[1]) {
 	case "info":
-		apis.InfoGet(token)
-	case "server":
-		apis.SearchServicePost(query, start, size, token)
+		apis.InfoGet(token.Token)
+	case "query":
+		if num < 3 {
+			fmt.Println("!!!!query is empty !!!!")
+			return
+		}
+		apis.SearchServicePost(os.Args[2], start, size, token.Token)
 	case "host":
 		fmt.Println("主机数据接口待完成。。。")
 	case "favicon":
@@ -65,6 +68,11 @@ Usage of ./quake_go:
 	}
 }
 
-func Init() {
-	fmt.Println("Starting Quake Cli...")
+func flaginit() (string, string) {
+	var start, size string
+	flag.StringVar(&size, "size", "10", "size String value")
+	flag.StringVar(&start, "start", "0", "start String value")
+
+	flag.Parse()
+	return start, size
 }
