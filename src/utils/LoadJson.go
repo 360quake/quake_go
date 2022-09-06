@@ -2,7 +2,7 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 16:04:43
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 16:42:24
+ * @LastEditTime: 2022-09-06 16:26:37
  * @FilePath: /quake_go/src/utils/LoadJson.go
  * @Description:
  *
@@ -56,7 +56,7 @@ type ServiceJson struct {
 		Org       string `json:"org"`
 		OsName    string `json:"os_name"`
 		OsVersion string `json:"os_version"`
-		Port      int    `json:"port"`
+		Port      int64  `json:"port"`
 		Service   struct {
 			Banner string `json:"banner"`
 			Cert   string `json:"cert"`

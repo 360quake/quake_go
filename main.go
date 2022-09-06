@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 16:39:06
+ * @LastEditTime: 2022-09-06 17:30:44
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -11,7 +11,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"quake/src/apis"
@@ -35,12 +34,12 @@ Usage of ./quake:
         person infomation
   query <string>
         query string value
-  -t <string,string>
-        field string value(example:./quake query port:8088 -t ip,port)
+  -t <string>
+        field string value(example:./quake query port:8088 -t=body)
   -size string
-        size String value (default "10")
+        size String value (default :./quake query port:8088 -size=10)
   -start string
-        start String value (default "0")`)
+        start String value (default :./quake query port:8088 -start=0)`)
 		return
 	}
 	path := "./config.yaml"
@@ -57,7 +56,22 @@ Usage of ./quake:
 		fmt.Println("!!!!please ./quake init token!!!!")
 		return
 	}
-	start, size, field := flaginit()
+	start := "0"
+	size := "10"
+	field := "ip,port"
+	for _, value := range os.Args {
+		tmp := strings.Split(value, "=")
+		if strings.Contains(tmp[0], "-start") {
+			start = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-size") {
+			size = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-t") {
+			field = tmp[1]
+		}
+	}
+
 	switch strings.ToLower(os.Args[1]) {
 	case "info":
 		apis.InfoGet(token.Token)
@@ -76,12 +90,4 @@ Usage of ./quake:
 	default:
 		fmt.Println("args failed !!!!")
 	}
-}
-
-func flaginit() (start string, size string, field string) {
-	flag.StringVar(&field, "t", "", "field String value")
-	flag.StringVar(&size, "size", "10", "size String value")
-	flag.StringVar(&start, "start", "0", "start String value")
-	flag.Parse()
-	return
 }

@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 16:44:26
+ * @LastEditTime: 2022-09-06 17:28:03
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -15,7 +15,7 @@ import (
 	"quake/src/setting"
 	"quake/src/tools"
 	"quake/src/utils"
-	"strconv"
+	"strings"
 )
 
 func FilterableServiceGET(token string) {
@@ -46,17 +46,21 @@ func SearchServicePost(query string, start string, size string, token string, fi
 	body := tools.ApisPost(setting.URL+uri, payload, start, size, token)
 	resut := utils.SeriveLoadJson(body)
 	data := resut.Data
-	// if field != "" {
-	// 	fields := strings.Split(field, ",")
-	// 	for _, fields_value := range fields {
-	// 		for _, value := range data {
-	// 			fmt.Println(value.fields_value)
-	// 		}
-	// 	}
-	// }
-	for _, value := range data {
-		fmt.Println(value.IP + ":" + strconv.Itoa(value.Port))
+	fields := strings.Split(field, ",")
+	for _, value := range fields {
+		if strings.Contains(value, "body") {
+			for _, value := range data {
+				fmt.Println(value)
+				return
+			}
+		}
 	}
+	for _, value := range data {
+		fmt.Println("@@", value.IP, ":", value.Port)
+	}
+	// for _, value := range data {
+	// 	fmt.Println(value.IP + ":" + strconv.Itoa(value.Port))
+	// }
 
 }
 func ScrollServicePost(query string, start string, size string, token string) {
