@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-02 16:51:22
+ * @LastEditTime: 2022-09-06 11:26:22
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -11,57 +11,54 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
 	"quake/src/apis"
+	"quake/src/utils"
 	"strings"
 )
 
 func main() {
-	test()
-
+	Init()
 }
 
 func Init() {
 	fmt.Println("Starting Quake Cli...")
-	var model, token, query, start, size string
-	flag.StringVar(&size, "size", "10", "size String value")
-	flag.StringVar(&start, "start", "0", "start String value")
-	flag.StringVar(&query, "query", "", "query String value")
-	flag.StringVar(&model, "model", "", "model String value,example: server,info")
-	flag.StringVar(&token, "token", "", "token Sting value")
-
-	flag.Parse()
-
-	if len(os.Args) == 1 {
-		fmt.Println(`example:
-	./quake -token=<token> -model=<model> -query=<query>`)
+	num := len(os.Args)
+	if num < 2 {
 		fmt.Println(`
 Usage of ./quake_go:
-  -model string
-        model String value (default "info")
-  -query string
-        query String value
   -size string
         size String value (default "10")
   -start string
-        start String value (default "0")
-  -token string
-        token Sting value`)
+        start String value (default "0")`)
 		return
 	}
-	if token == "" {
-		fmt.Println("!!!!token is empty!!!!")
+	path := "./config.yaml"
+	if strings.ToLower(os.Args[1]) == "init" {
+		if num < 3 {
+			fmt.Println("!!!!token is empty !!!!")
+			return
+		}
+		utils.WriteYaml(path, os.Args[2])
 		return
 	}
-
-	switch strings.ToLower(model) {
+	token, status := utils.ReadYaml(path)
+	if status {
+		fmt.Println("!!!!please ./quake init token!!!!")
+		return
+	}
+	start, size := flaginit()
+	switch strings.ToLower(os.Args[1]) {
 	case "info":
-		apis.InfoGet(token)
-	case "server":
-		apis.SearchServicePost(query, start, size, token)
+		apis.InfoGet(token.Token)
+	case "query":
+		if num < 3 {
+			fmt.Println("!!!!query is empty !!!!")
+			return
+		}
+		apis.SearchServicePost(os.Args[2], start, size, token.Token)
 	case "host":
 		fmt.Println("主机数据接口待完成。。。")
 	case "favicon":
@@ -71,20 +68,11 @@ Usage of ./quake_go:
 	}
 }
 
-type Server struct {
-	ServerName string // 首字母大写，首字母不敏感，其他字母敏感
-	ServerIP   string // 首字母大写
-}
+func flaginit() (string, string) {
+	var start, size string
+	flag.StringVar(&size, "size", "10", "size String value")
+	flag.StringVar(&start, "start", "0", "start String value")
 
-type Serverslice struct {
-	Servers []Server
-}
-
-func test() {
-	var s Serverslice
-	str := `{"servers":[{"serverName":"Local_Web","serverIP":"127.0.0.1"},{"serverName":"Local_DB","serverIP":"127.0.0.1"}]}`
-	json.Unmarshal([]byte(str), &s)
-
-	// 输出转换后第一条
-	fmt.Println(s.Servers[0])
+	flag.Parse()
+	return start, size
 }

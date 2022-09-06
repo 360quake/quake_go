@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-02 15:51:29
+ * @LastEditTime: 2022-09-06 11:29:48
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -29,7 +29,13 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
 
 ## 更新日志
 
+- 2022-09-06 v1.1:
+
+  - 简化参数传参格式
+  - 将 token 固化在当前目录
+
 - 2022-09-01 v1.0:
+
   - 新增 info 接口功能
   - 新增 service 接口功能
 
@@ -38,17 +44,7 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
 ```bash
 Starting Quake Cli...
 example:
- ./quake -token=<token> -model=<model> -query=<query>
-
-Usage of ./quake_go:
-  -model string
-        model String value
-  -query string
-        query String value
-  -size string
-        size String value (default "10")
-  -start string
-        start String value (default "0")
-  -token string
-        token Sting value
+./quake init <token>
+./quake info
+./quake query port:443
 ```
