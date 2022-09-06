@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 16:41:22
+ * @LastEditTime: 2022-09-06 16:44:26
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -86,7 +86,8 @@ func AggregationServicePost(query string, start string, size string, token strin
 func InfoGet(token string) {
 	// 个人信息接口
 	uri := "/user/info"
-	tools.ApisGet(setting.URL+uri, token)
+	info := tools.ApisGet(setting.URL+uri, token)
+	fmt.Println(info)
 }
 func FaviconPost(query string, start string, size string, token string) {
 	uri := "/query/similar_icon/aggregation"
