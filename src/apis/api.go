@@ -1,8 +1,8 @@
 /*
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
- * @LastEditors: ph4nt0mer rootphantomy@hotmail.com
- * @LastEditTime: 2022-09-01 22:55:24
+ * @LastEditors: rootphantomer
+ * @LastEditTime: 2022-09-06 15:41:39
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *

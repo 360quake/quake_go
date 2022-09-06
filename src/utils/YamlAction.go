@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer rootphantomy@hotmail.com
  * @Date: 2022-09-06 10:04:23
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 14:06:08
+ * @LastEditTime: 2022-09-06 15:56:31
  * @FilePath: /quake_go/src/utils/YamlAction.go
  * @Description:读写yaml
  *
@@ -49,6 +49,5 @@ func ReadYaml(path string) (token TokenInfo, status bool) {
 	content, err := ioutil.ReadFile(path)
 	status = checkError(err)
 	err = yaml.Unmarshal(content, &token)
-	status = checkError(err)
 	return
 }

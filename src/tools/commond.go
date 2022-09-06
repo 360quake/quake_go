@@ -1,8 +1,8 @@
 /*
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 10:49:31
- * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-01 16:05:44
+ * @LastEditors: rootphantomer
+ * @LastEditTime: 2022-09-06 15:53:00
  * @FilePath: /quake_go/src/tools/commond.go
  * @Description:
  *
@@ -15,6 +15,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 func ApisPost(url string, payload string, start string, size string, token string) {
@@ -42,6 +43,9 @@ func ApisPost(url string, payload string, start string, size string, token strin
 	}
 	fmt.Println("result:")
 	fmt.Println(string(body))
+	if strings.Contains(string(body), "login") {
+		fmt.Println("token expired,please init new token")
+	}
 }
 func ApisGet(url string, token string) {
 	client := &http.Client{}
@@ -67,4 +71,7 @@ func ApisGet(url string, token string) {
 	}
 	fmt.Println("result:")
 	fmt.Println(string(body))
+	if strings.Contains(string(body), "login") {
+		fmt.Println("token expired,please init new token")
+	}
 }

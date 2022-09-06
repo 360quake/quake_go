@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 14:08:47
+ * @LastEditTime: 2022-09-06 15:56:53
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -55,7 +55,7 @@ Usage of ./quake:
 		fmt.Println("!!!!please ./quake init token!!!!")
 		return
 	}
-	start, size := flaginit()
+	start, size, _ := flaginit()
 	switch strings.ToLower(os.Args[1]) {
 	case "info":
 		apis.InfoGet(token.Token)
@@ -76,10 +76,10 @@ Usage of ./quake:
 	}
 }
 
-func flaginit() (start string, size string) {
+func flaginit() (start string, size string, field string) {
+	flag.StringVar(&field, "t", "", "field String value")
 	flag.StringVar(&size, "size", "10", "size String value")
 	flag.StringVar(&start, "start", "0", "start String value")
-
 	flag.Parse()
 	return
 }
