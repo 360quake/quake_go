@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 15:41:39
+ * @LastEditTime: 2022-09-06 16:41:22
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -14,6 +14,8 @@ import (
 	"fmt"
 	"quake/src/setting"
 	"quake/src/tools"
+	"quake/src/utils"
+	"strconv"
 )
 
 func FilterableServiceGET(token string) {
@@ -22,7 +24,7 @@ func FilterableServiceGET(token string) {
 	uri := "/filterable/field/quake_service"
 	tools.ApisGet(setting.URL+uri, token)
 }
-func SearchServicePost(query string, start string, size string, token string) {
+func SearchServicePost(query string, start string, size string, token string, field string) {
 	// 服务数据实时查询接口
 	// curl -X POST "https://quake.360.cn/api/v3/search/quake_service" -H "X-QuakeToken: d17140ae-xxxx-xxx-xxxx-c0818b2bbxxx" -H "Content-Type: application/json" -d '{
 	//      "query": "service: http",
@@ -40,7 +42,22 @@ func SearchServicePost(query string, start string, size string, token string) {
 	payload := "{\"query\":\"" + query +
 		"\",\"start\":\"" + start + "\",\"size\":\"" + size +
 		"\"}"
-	tools.ApisPost(setting.URL+uri, payload, start, size, token)
+
+	body := tools.ApisPost(setting.URL+uri, payload, start, size, token)
+	resut := utils.SeriveLoadJson(body)
+	data := resut.Data
+	// if field != "" {
+	// 	fields := strings.Split(field, ",")
+	// 	for _, fields_value := range fields {
+	// 		for _, value := range data {
+	// 			fmt.Println(value.fields_value)
+	// 		}
+	// 	}
+	// }
+	for _, value := range data {
+		fmt.Println(value.IP + ":" + strconv.Itoa(value.Port))
+	}
+
 }
 func ScrollServicePost(query string, start string, size string, token string) {
 	// 服务数据深度查询接口
