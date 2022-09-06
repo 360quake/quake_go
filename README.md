@@ -1,8 +1,8 @@
 <!--
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
- * @LastEditors: ph4nt0mer
- * @LastEditTime: 2022-09-06 11:29:48
+ * @LastEditors: rootphantomer
+ * @LastEditTime: 2022-09-06 17:35:56
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -29,6 +29,11 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
 
 ## 更新日志
 
+- 2022-09-06 v1.2:
+
+  - 默认输出格式为 ip:port(见下图)
+  - 新增-t=body 可以输出 body 信息
+
 - 2022-09-06 v1.1:
 
   - 简化参数传参格式
@@ -47,4 +52,9 @@ example:
 ./quake init <token>
 ./quake info
 ./quake query port:443
+./quake query port:443 -start=0 -size=20
 ```
+
+## 案例
+
+![alt](./iShot_2022-09-06_17.32.57.jpg)
