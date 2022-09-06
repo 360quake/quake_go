@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 15:56:53
+ * @LastEditTime: 2022-09-06 16:39:06
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -34,7 +34,9 @@ Usage of ./quake:
   info 
         person infomation
   query <string>
-        query string
+        query string value
+  -t <string,string>
+        field string value(example:./quake query port:8088 -t ip,port)
   -size string
         size String value (default "10")
   -start string
@@ -55,7 +57,7 @@ Usage of ./quake:
 		fmt.Println("!!!!please ./quake init token!!!!")
 		return
 	}
-	start, size, _ := flaginit()
+	start, size, field := flaginit()
 	switch strings.ToLower(os.Args[1]) {
 	case "info":
 		apis.InfoGet(token.Token)
@@ -64,7 +66,7 @@ Usage of ./quake:
 			fmt.Println("!!!!query is empty !!!!")
 			return
 		}
-		apis.SearchServicePost(os.Args[2], start, size, token.Token)
+		apis.SearchServicePost(os.Args[2], start, size, token.Token, field)
 	case "host":
 		fmt.Println("主机数据接口待完成。。。")
 	case "favicon":
