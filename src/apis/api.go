@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 17:28:03
+ * @LastEditTime: 2022-09-07 10:15:51
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -11,7 +11,9 @@
 package apis
 
 import (
+	"encoding/json"
 	"fmt"
+	. "quake/src/model"
 	"quake/src/setting"
 	"quake/src/tools"
 	"quake/src/utils"
@@ -24,7 +26,7 @@ func FilterableServiceGET(token string) {
 	uri := "/filterable/field/quake_service"
 	tools.ApisGet(setting.URL+uri, token)
 }
-func SearchServicePost(query string, start string, size string, token string, field string) {
+func SearchServicePost(reqjson Reqjson, token string) {
 	// 服务数据实时查询接口
 	// curl -X POST "https://quake.360.cn/api/v3/search/quake_service" -H "X-QuakeToken: d17140ae-xxxx-xxx-xxxx-c0818b2bbxxx" -H "Content-Type: application/json" -d '{
 	//      "query": "service: http",
@@ -34,19 +36,23 @@ func SearchServicePost(query string, start string, size string, token string, fi
 	//      "start_time": "2021-01-01 00:00:00",
 	//      "end_time": "2021-02-01 00:00:00"
 	// }'
-	if query == "" || query == "?" {
+	if reqjson.Query == "" || reqjson.Query == "?" {
 		fmt.Println("No query specified")
 		return
 	}
 	uri := "/search/quake_service"
-	payload := "{\"query\":\"" + query +
-		"\",\"start\":\"" + start + "\",\"size\":\"" + size +
-		"\"}"
-
-	body := tools.ApisPost(setting.URL+uri, payload, start, size, token)
+	// payload := "{\"query\":\"" + req.Query +
+	// 	"\",\"start\":\"" + req.Start + "\",\"size\":\"" + req.Size +
+	// 	"\"}"
+	datajson, err := json.Marshal(reqjson)
+	if err != nil {
+		panic(err)
+	}
+	payload := string(datajson)
+	body := tools.ApisPost(setting.URL+uri, payload, token)
 	resut := utils.SeriveLoadJson(body)
 	data := resut.Data
-	fields := strings.Split(field, ",")
+	fields := strings.Split(reqjson.Field, ",")
 	for _, value := range fields {
 		if strings.Contains(value, "body") {
 			for _, value := range data {
@@ -73,7 +79,7 @@ func ScrollServicePost(query string, start string, size string, token string) {
 	//     "end_time": "2021-05-20 01:13:14"
 	// }'
 	uri := "/scroll/quake_service"
-	tools.ApisPost(setting.URL+uri, query, start, size, token)
+	tools.ApisPost(setting.URL+uri, query, token)
 }
 func AggregationServiceGet(token string) {
 	// 获取聚合数据筛选字段
@@ -85,7 +91,7 @@ func AggregationServicePost(query string, start string, size string, token strin
 	// 获取聚合数据筛选字段
 	// curl -X GET "https://quake.360.cn/api/v3/aggregation/quake_service" -H "X-QuakeToken: d17140ae-xxxx-xxx-xxxx-c0818b2bbxxx"
 	uri := "/aggregation/quake_service"
-	tools.ApisPost(setting.URL+uri, query, start, size, token)
+	tools.ApisPost(setting.URL+uri, query, token)
 }
 func InfoGet(token string) {
 	// 个人信息接口
@@ -93,7 +99,7 @@ func InfoGet(token string) {
 	info := tools.ApisGet(setting.URL+uri, token)
 	fmt.Println(info)
 }
-func FaviconPost(query string, start string, size string, token string) {
+func FaviconPost(query string, token string) {
 	uri := "/query/similar_icon/aggregation"
 	tools.ApisGet(setting.URL+uri, token)
 }

@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 17:30:44
+ * @LastEditTime: 2022-09-07 10:14:10
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -14,6 +14,7 @@ import (
 	"fmt"
 	"os"
 	"quake/src/apis"
+	. "quake/src/model"
 	"quake/src/utils"
 	"strings"
 )
@@ -35,11 +36,17 @@ Usage of ./quake:
   query <string>
         query string value
   -t <string>
-        field string value(example:./quake query port:8088 -t=body)
-  -size string
-        size String value (default :./quake query port:8088 -size=10)
+        field string value(example:./quake query port:8088 -t=body,)
+  -ic bool
+        ignore_cache value (true or false)
+  -s time
+		start time value, USE UTC
+  -e time
+		end time value, USE UTC
   -start string
-        start String value (default :./quake query port:8088 -start=0)`)
+        start String value (default :./quake query port:8088 -start=0)
+  -size string
+        size String value (default :./quake query port:8088 -size=10)`)
 		return
 	}
 	path := "./config.yaml"
@@ -56,22 +63,31 @@ Usage of ./quake:
 		fmt.Println("!!!!please ./quake init token!!!!")
 		return
 	}
-	start := "0"
-	size := "10"
-	field := "ip,port"
+	var reqjson Reqjson
+	reqjson.Field = "ip,port"
 	for _, value := range os.Args {
 		tmp := strings.Split(value, "=")
 		if strings.Contains(tmp[0], "-start") {
-			start = tmp[1]
+			reqjson.Start = tmp[1]
 		}
 		if strings.Contains(tmp[0], "-size") {
-			size = tmp[1]
+			reqjson.Size = tmp[1]
 		}
 		if strings.Contains(tmp[0], "-t") {
-			field = tmp[1]
+			reqjson.Field = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-s") {
+			reqjson.Start_time = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-e") {
+			reqjson.End_time = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-ic") {
+			if strings.Contains(tmp[1], "true") {
+				reqjson.Ignore_cache = true
+			}
 		}
 	}
-
 	switch strings.ToLower(os.Args[1]) {
 	case "info":
 		apis.InfoGet(token.Token)
@@ -80,7 +96,8 @@ Usage of ./quake:
 			fmt.Println("!!!!query is empty !!!!")
 			return
 		}
-		apis.SearchServicePost(os.Args[2], start, size, token.Token, field)
+		reqjson.Query = os.Args[2]
+		apis.SearchServicePost(reqjson, token.Token)
 	case "host":
 		fmt.Println("主机数据接口待完成。。。")
 	case "favicon":
