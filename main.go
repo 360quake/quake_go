@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 18:06:12
+ * @LastEditTime: 2022-09-07 09:46:49
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -39,14 +39,14 @@ Usage of ./quake:
         field string value(example:./quake query port:8088 -t=body,)
   -ic bool
         ignore_cache value (true or false)
-  -st time
+  -s time
 		start time value, USE UTC
-  -se time
+  -e time
 		end time value, USE UTC
-  -size string
-        size String value (default :./quake query port:8088 -size=10)
   -start string
-        start String value (default :./quake query port:8088 -start=0)`)
+        start String value (default :./quake query port:8088 -start=0)
+  -size string
+        size String value (default :./quake query port:8088 -size=10)`)
 		return
 	}
 	path := "./config.yaml"
@@ -78,6 +78,12 @@ Usage of ./quake:
 		}
 		if strings.Contains(tmp[0], "-t") {
 			reqjson.Field = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-s") {
+			reqjson.Start_time = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-e") {
+			reqjson.End_time = tmp[1]
 		}
 	}
 	switch strings.ToLower(os.Args[1]) {

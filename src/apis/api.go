@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 18:05:32
+ * @LastEditTime: 2022-09-07 10:00:52
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -43,6 +43,11 @@ func SearchServicePost(req Reqjson, token string) {
 	payload := "{\"query\":\"" + req.Query +
 		"\",\"start\":\"" + req.Start + "\",\"size\":\"" + req.Size +
 		"\"}"
+	// data, err := json.Marshal(req)
+	// if err!=nil{
+	// 	panic(err)
+	// }
+	// payload := string(data)
 	body := tools.ApisPost(setting.URL+uri, payload, token)
 	resut := utils.SeriveLoadJson(body)
 	data := resut.Data
