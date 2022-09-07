@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 09:46:49
+ * @LastEditTime: 2022-09-07 10:14:10
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -64,10 +64,7 @@ Usage of ./quake:
 		return
 	}
 	var reqjson Reqjson
-	reqjson.Start = "0"
-	reqjson.Size = "10"
 	reqjson.Field = "ip,port"
-	reqjson.Ignore_cache = false
 	for _, value := range os.Args {
 		tmp := strings.Split(value, "=")
 		if strings.Contains(tmp[0], "-start") {
@@ -84,6 +81,11 @@ Usage of ./quake:
 		}
 		if strings.Contains(tmp[0], "-e") {
 			reqjson.End_time = tmp[1]
+		}
+		if strings.Contains(tmp[0], "-ic") {
+			if strings.Contains(tmp[1], "true") {
+				reqjson.Ignore_cache = true
+			}
 		}
 	}
 	switch strings.ToLower(os.Args[1]) {
