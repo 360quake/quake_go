@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 10:49:31
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 18:12:57
+ * @LastEditTime: 2022-09-07 15:47:47
  * @FilePath: /quake_go/src/tools/commond.go
  * @Description:
  *
@@ -18,10 +18,9 @@ import (
 	"strings"
 )
 
-func ApisPost(url string, data string, token string) string {
-	var jsonStr = []byte(data)
+func ApisPost(url string, data []byte, token string) string {
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(data))
 	if err != nil {
 		fmt.Println(err)
 		return err.Error()
