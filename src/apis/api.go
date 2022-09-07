@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 11:19:11
+ * @LastEditTime: 2022-09-07 12:03:53
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -49,6 +49,7 @@ func SearchServicePost(reqjson Reqjson, token string) {
 		panic(err)
 	}
 	payload := string(datajson)
+	fmt.Println(payload)
 	body := tools.ApisPost(setting.URL+uri, payload, token)
 	resut := utils.SeriveLoadJson(body)
 	data := resut.Data
