@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 16:46:26
+ * @LastEditTime: 2022-09-07 18:00:02
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -41,7 +41,7 @@ func hflag_init() {
 		panic(err)
 	}
 	num := len(os.Args)
-	if num < 3 {
+	if num < 2 {
 		fmt.Println("./quake -h get help!")
 		return
 	}
