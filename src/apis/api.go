@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 15:39:06
+ * @LastEditTime: 2022-09-07 16:43:50
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -17,6 +17,7 @@ import (
 	"quake/src/setting"
 	"quake/src/tools"
 	"quake/src/utils"
+	"strconv"
 	"strings"
 )
 
@@ -36,11 +37,25 @@ func SearchServicePost(reqjson Reqjson, token string) {
 	//      "start_time": "2021-01-01 00:00:00",
 	//      "end_time": "2021-02-01 00:00:00"
 	// }'
+	uri := "/search/quake_service"
 	if reqjson.Query == "" || reqjson.Query == "?" {
 		fmt.Println("No query specified")
 		return
 	}
-	uri := "/search/quake_service"
+	if reqjson.Query_txt != "" {
+		bytedata, _ := utils.ReadLine(reqjson.Query_txt)
+		tmp := ""
+		for _, v := range bytedata {
+			if tmp == "" {
+				tmp = v
+			} else {
+				tmp += " OR " + v
+			}
+
+		}
+		fmt.Println(tmp)
+		reqjson.Query = tmp
+	}
 	// payload := "{\"query\":\"" + req.Query +
 	// 	"\",\"start\":\"" + req.Start + "\",\"size\":\"" + req.Size +
 	// 	"\"}"
@@ -62,7 +77,7 @@ func SearchServicePost(reqjson Reqjson, token string) {
 		}
 	}
 	for _, value := range data {
-		fmt.Println("@@", value.IP, ":", value.Port)
+		fmt.Println("@@@", value.IP+":"+strconv.Itoa(value.Port))
 	}
 	// for _, value := range data {
 	// 	fmt.Println(value.IP + ":" + strconv.Itoa(value.Port))

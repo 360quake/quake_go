@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 10:49:31
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 15:36:09
+ * @LastEditTime: 2022-09-07 15:47:47
  * @FilePath: /quake_go/src/tools/commond.go
  * @Description:
  *
