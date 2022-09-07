@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 12:41:06
+ * @LastEditTime: 2022-09-07 14:54:55
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -128,38 +128,30 @@ func hflag_init() {
 	}
 	num := len(os.Args)
 	if num < 2 {
-		fmt.Println(`
-usage: quake [pos] [-e,end_time time=2022-09-07 12:39:56] [-fe,field string] [-h,help bool] [-ic,ignore_cache bool=false] [-sz,size string=10] [-st,start string=0] [-s,start_time time=2022-01-01]
-
-positional options:
-       pos             [string]                    pos flag
-
-options:
-   -e, --end_time      [time=2022-09-07 12:39:56]  end time flag
-  -fe, --field         [string]                    field flag
-   -h, --help          [bool]                      show usage
-  -ic, --ignore_cache  [bool=false]                ignore_cache value (true or false)
-  -sz, --size          [string=10]                 size flag
-  -st, --start         [string=0]                  start flag
-   -s, --start_time    [time=2022-01-01]           start time flag`)
+		fmt.Println("./quake -h get help!")
 		return
 	}
-	path := "./config.yaml"
-	token, status := utils.ReadYaml(path)
-	if status {
-		fmt.Println("!!!!please ./quake init token!!!!")
-		return
-	}
+
 	switch strings.ToLower(hflag.GetString("pos")) {
+	case "version":
+		fmt.Println("version:1.4")
 	case "init":
 		if num < 3 {
 			fmt.Println("!!!!token is empty !!!!")
 			return
 		}
-		utils.WriteYaml(path, os.Args[2])
+		utils.WriteYaml("./config.yaml", os.Args[2])
 	case "info":
+		token, status := utils.ReadYaml("./config.yaml")
+		if !status {
+			return
+		}
 		apis.InfoGet(token.Token)
 	case "query":
+		token, status := utils.ReadYaml("./config.yaml")
+		if !status {
+			return
+		}
 		var reqjson Reqjson
 		reqjson.Query = os.Args[2]
 		reqjson.Start = hflag.GetString("start")
