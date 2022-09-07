@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 17:35:56
+ * @LastEditTime: 2022-09-07 10:22:20
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -28,6 +28,11 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
    ```
 
 ## 更新日志
+
+- 2022-09-07 v1.3:
+
+  - 支持-ic,-s,-e(ignore_cache,start_time,end_time)参数传入
+  - 优化发包的结构体解析
 
 - 2022-09-06 v1.2:
 
