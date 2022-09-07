@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 10:22:20
+ * @LastEditTime: 2022-09-07 12:42:01
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -28,6 +28,10 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
    ```
 
 ## 更新日志
+
+- 2022-09-07 v1.4:
+
+  - 替换 hflg 来解析命令行参数，使参数拓展开发更简单
 
 - 2022-09-07 v1.3:
 
