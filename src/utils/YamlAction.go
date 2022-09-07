@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer rootphantomy@hotmail.com
  * @Date: 2022-09-06 10:04:23
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 15:56:31
+ * @LastEditTime: 2022-09-07 14:52:26
  * @FilePath: /quake_go/src/utils/YamlAction.go
  * @Description:读写yaml
  *
@@ -13,6 +13,7 @@ package utils
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
@@ -44,10 +45,20 @@ func checkError(err error) bool {
 	return false
 }
 
-func ReadYaml(path string) (token TokenInfo, status bool) {
+func ReadYaml(path string) (TokenInfo, bool) {
 	// 读取yaml里面的内容
-	content, err := ioutil.ReadFile(path)
-	status = checkError(err)
-	err = yaml.Unmarshal(content, &token)
-	return
+	var token TokenInfo
+	token.Token = ""
+	_, err := os.Stat(path)
+	if err == nil {
+		content, _ := ioutil.ReadFile(path)
+		yaml.Unmarshal(content, &token)
+		return token, true
+	}
+	if os.IsNotExist(err) { //如果返回的错误类型使用os.isNotExist()判断为true，说明文件或者文件夹不存在
+		fmt.Println("!!!!please ./quake init token!!!!")
+		return token, false
+	}
+	fmt.Println("!!!!please ./quake init token!!!!")
+	return token, false
 }

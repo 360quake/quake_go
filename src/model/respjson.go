@@ -2,7 +2,7 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 18:10:53
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 18:10:57
+ * @LastEditTime: 2022-09-07 16:43:31
  * @FilePath: /quake_go/src/model/respjson.go
  * @Description:
  *
@@ -12,9 +12,9 @@
 package model
 
 type ServiceJson struct {
-	Code int64 `json:"code"`
+	Code int `json:"code"`
 	Data []struct {
-		Asn int64 `json:"asn"`
+		Asn int `json:"asn"`
 		Cdn struct {
 			Domain string `json:"domain"`
 			IsCdn  bool   `json:"is_cdn"`
@@ -52,7 +52,7 @@ type ServiceJson struct {
 		Org       string `json:"org"`
 		OsName    string `json:"os_name"`
 		OsVersion string `json:"os_version"`
-		Port      int64  `json:"port"`
+		Port      int    `json:"port"`
 		Service   struct {
 			Banner string `json:"banner"`
 			Cert   string `json:"cert"`
@@ -69,7 +69,7 @@ type ServiceJson struct {
 				Path            string `json:"path"`
 				ResponseHeaders string `json:"response_headers"`
 				Server          string `json:"server"`
-				StatusCode      int64  `json:"status_code"`
+				StatusCode      int    `json:"status_code"`
 				Title           string `json:"title"`
 				XPoweredBy      string `json:"x_powered_by"`
 			} `json:"http"`
@@ -85,10 +85,68 @@ type ServiceJson struct {
 	Message string `json:"message"`
 	Meta    struct {
 		Pagination struct {
-			Count     int64 `json:"count"`
-			PageIndex int64 `json:"page_index"`
-			PageSize  int64 `json:"page_size"`
-			Total     int64 `json:"total"`
+			Count     int `json:"count"`
+			PageIndex int `json:"page_index"`
+			PageSize  int `json:"page_size"`
+			Total     int `json:"total"`
 		} `json:"pagination"`
 	} `json:"meta"`
+}
+
+type InfoJson struct {
+	Code int `json:"code"`
+	Data struct {
+		AvatarID       string `json:"avatar_id"`
+		BanStatus      string `json:"ban_status"`
+		Baned          bool   `json:"baned"`
+		ConstantCredit int    `json:"constant_credit"`
+		Credit         int    `json:"credit"`
+		Disable        struct {
+			DisableTime interface{} `json:"disable_time"`
+			StartTime   interface{} `json:"start_time"`
+		} `json:"disable"`
+		EnterpriseInformation struct {
+			Email  interface{} `json:"email"`
+			Name   interface{} `json:"name"`
+			Status string      `json:"status"`
+		} `json:"enterprise_information"`
+		FreeQueryAPICount  int    `json:"free_query_api_count"`
+		ID                 string `json:"id"`
+		InvitationCodeInfo struct {
+			Code                string `json:"code"`
+			InviteAcquireCredit int    `json:"invite_acquire_credit"`
+			InviteNumber        int    `json:"invite_number"`
+		} `json:"invitation_code_info"`
+		IsCashedInvitationCode    bool   `json:"is_cashed_invitation_code"`
+		MobilePhone               string `json:"mobile_phone"`
+		MonthRemainingCredit      int    `json:"month_remaining_credit"`
+		PersistentCredit          int    `json:"persistent_credit"`
+		PersonalInformationStatus bool   `json:"personal_information_status"`
+		PrivacyLog                struct {
+			AnonymousModel bool   `json:"anonymous_model"`
+			QuakeLogStatus bool   `json:"quake_log_status"`
+			QuakeLogTime   string `json:"quake_log_time"`
+			Status         bool   `json:"status"`
+			Time           string `json:"time"`
+		} `json:"privacy_log"`
+		Role []struct {
+			Credit   int    `json:"credit"`
+			Fullname string `json:"fullname"`
+			Priority int    `json:"priority"`
+		} `json:"role"`
+		RoleValidity struct {
+		} `json:"role_validity"`
+		Source string `json:"source"`
+		Time   string `json:"time"`
+		Token  string `json:"token"`
+		User   struct {
+			Email    string   `json:"email"`
+			Fullname string   `json:"fullname"`
+			Group    []string `json:"group"`
+			ID       string   `json:"id"`
+			Username string   `json:"username"`
+		} `json:"user"`
+	} `json:"data"`
+	Message string   `json:"message"`
+	Meta    struct{} `json:"meta"`
 }
