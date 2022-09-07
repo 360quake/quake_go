@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 10:15:51
+ * @LastEditTime: 2022-09-07 11:19:11
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -97,7 +97,13 @@ func InfoGet(token string) {
 	// 个人信息接口
 	uri := "/user/info"
 	info := tools.ApisGet(setting.URL+uri, token)
-	fmt.Println(info)
+	resut := utils.InfoLoadJson(info)
+	data := resut.Data
+	fmt.Println("#用户名:", data.User.Username)
+	fmt.Println("#邮  箱:", data.User.Email)
+	fmt.Println("#手机:", data.MobilePhone)
+	fmt.Println("#月度积分:", data.MonthRemainingCredit)
+	fmt.Println("#长效积分:", data.ConstantCredit)
 }
 func FaviconPost(query string, token string) {
 	uri := "/query/similar_icon/aggregation"
