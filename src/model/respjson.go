@@ -2,7 +2,7 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 18:10:53
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-06 18:10:57
+ * @LastEditTime: 2022-09-07 11:19:02
  * @FilePath: /quake_go/src/model/respjson.go
  * @Description:
  *
@@ -91,4 +91,62 @@ type ServiceJson struct {
 			Total     int64 `json:"total"`
 		} `json:"pagination"`
 	} `json:"meta"`
+}
+
+type InfoJson struct {
+	Code int64 `json:"code"`
+	Data struct {
+		AvatarID       string `json:"avatar_id"`
+		BanStatus      string `json:"ban_status"`
+		Baned          bool   `json:"baned"`
+		ConstantCredit int64  `json:"constant_credit"`
+		Credit         int64  `json:"credit"`
+		Disable        struct {
+			DisableTime interface{} `json:"disable_time"`
+			StartTime   interface{} `json:"start_time"`
+		} `json:"disable"`
+		EnterpriseInformation struct {
+			Email  interface{} `json:"email"`
+			Name   interface{} `json:"name"`
+			Status string      `json:"status"`
+		} `json:"enterprise_information"`
+		FreeQueryAPICount  int64  `json:"free_query_api_count"`
+		ID                 string `json:"id"`
+		InvitationCodeInfo struct {
+			Code                string `json:"code"`
+			InviteAcquireCredit int64  `json:"invite_acquire_credit"`
+			InviteNumber        int64  `json:"invite_number"`
+		} `json:"invitation_code_info"`
+		IsCashedInvitationCode    bool   `json:"is_cashed_invitation_code"`
+		MobilePhone               string `json:"mobile_phone"`
+		MonthRemainingCredit      int64  `json:"month_remaining_credit"`
+		PersistentCredit          int64  `json:"persistent_credit"`
+		PersonalInformationStatus bool   `json:"personal_information_status"`
+		PrivacyLog                struct {
+			AnonymousModel bool   `json:"anonymous_model"`
+			QuakeLogStatus bool   `json:"quake_log_status"`
+			QuakeLogTime   string `json:"quake_log_time"`
+			Status         bool   `json:"status"`
+			Time           string `json:"time"`
+		} `json:"privacy_log"`
+		Role []struct {
+			Credit   int64  `json:"credit"`
+			Fullname string `json:"fullname"`
+			Priority int64  `json:"priority"`
+		} `json:"role"`
+		RoleValidity struct {
+		} `json:"role_validity"`
+		Source string `json:"source"`
+		Time   string `json:"time"`
+		Token  string `json:"token"`
+		User   struct {
+			Email    string   `json:"email"`
+			Fullname string   `json:"fullname"`
+			Group    []string `json:"group"`
+			ID       string   `json:"id"`
+			Username string   `json:"username"`
+		} `json:"user"`
+	} `json:"data"`
+	Message string   `json:"message"`
+	Meta    struct{} `json:"meta"`
 }
