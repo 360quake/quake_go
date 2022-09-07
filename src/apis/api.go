@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 10:00:52
+ * @LastEditTime: 2022-09-07 10:15:51
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -11,6 +11,7 @@
 package apis
 
 import (
+	"encoding/json"
 	"fmt"
 	. "quake/src/model"
 	"quake/src/setting"
@@ -25,7 +26,7 @@ func FilterableServiceGET(token string) {
 	uri := "/filterable/field/quake_service"
 	tools.ApisGet(setting.URL+uri, token)
 }
-func SearchServicePost(req Reqjson, token string) {
+func SearchServicePost(reqjson Reqjson, token string) {
 	// 服务数据实时查询接口
 	// curl -X POST "https://quake.360.cn/api/v3/search/quake_service" -H "X-QuakeToken: d17140ae-xxxx-xxx-xxxx-c0818b2bbxxx" -H "Content-Type: application/json" -d '{
 	//      "query": "service: http",
@@ -35,23 +36,23 @@ func SearchServicePost(req Reqjson, token string) {
 	//      "start_time": "2021-01-01 00:00:00",
 	//      "end_time": "2021-02-01 00:00:00"
 	// }'
-	if req.Query == "" || req.Query == "?" {
+	if reqjson.Query == "" || reqjson.Query == "?" {
 		fmt.Println("No query specified")
 		return
 	}
 	uri := "/search/quake_service"
-	payload := "{\"query\":\"" + req.Query +
-		"\",\"start\":\"" + req.Start + "\",\"size\":\"" + req.Size +
-		"\"}"
-	// data, err := json.Marshal(req)
-	// if err!=nil{
-	// 	panic(err)
-	// }
-	// payload := string(data)
+	// payload := "{\"query\":\"" + req.Query +
+	// 	"\",\"start\":\"" + req.Start + "\",\"size\":\"" + req.Size +
+	// 	"\"}"
+	datajson, err := json.Marshal(reqjson)
+	if err != nil {
+		panic(err)
+	}
+	payload := string(datajson)
 	body := tools.ApisPost(setting.URL+uri, payload, token)
 	resut := utils.SeriveLoadJson(body)
 	data := resut.Data
-	fields := strings.Split(req.Field, ",")
+	fields := strings.Split(reqjson.Field, ",")
 	for _, value := range fields {
 		if strings.Contains(value, "body") {
 			for _, value := range data {

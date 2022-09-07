@@ -12,10 +12,10 @@ package model
 
 type Reqjson struct {
 	Query        string `json:"query"`
-	Start        string `json:"start"`
-	Size         string `json:"size"`
-	Ignore_cache bool   `json:"ignore_cache"`
-	Start_time   string `json:"start_time"`
-	End_time     string `json:"end_time"`
-	Field        string `json:"field"`
+	Start        string `json:"start,omitempty"`
+	Size         string `json:"size,omitempty"`
+	Ignore_cache bool   `json:"ignore_cache,omitempty"`
+	Start_time   string `json:"start_time,omitempty"`
+	End_time     string `json:"end_time,omitempty"`
+	Field        string `json:"field,omitempty"`
 }
