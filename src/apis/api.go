@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 16:43:50
+ * @LastEditTime: 2022-09-09 18:22:25
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -18,7 +18,6 @@ import (
 	"quake/src/tools"
 	"quake/src/utils"
 	"strconv"
-	"strings"
 )
 
 func FilterableServiceGET(token string) {
@@ -65,22 +64,18 @@ func SearchServicePost(reqjson Reqjson, token string) {
 	}
 	fmt.Println(string(datajson))
 	body := tools.ApisPost(setting.URL+uri, datajson, token)
-	resut := utils.SeriveLoadJson(body)
-	data := resut.Data
-	fields := strings.Split(reqjson.Field, ",")
-	for _, value := range fields {
-		if strings.Contains(value, "body") {
-			for _, value := range data {
-				fmt.Println(value)
-				return
-			}
-		}
+	data_result := utils.SeriveLoadJson(body).Data
+	for index, value := range data_result {
+		fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port))
 	}
-	for _, value := range data {
-		fmt.Println("@@@", value.IP+":"+strconv.Itoa(value.Port))
-	}
-	// for _, value := range data {
-	// 	fmt.Println(value.IP + ":" + strconv.Itoa(value.Port))
+	// fields := strings.Split(reqjson.Field, ",")
+	// for _, value := range fields {
+	// 	if strings.Contains(value, "body") {
+	// 		for _, value := range data_result {
+	// 			fmt.Println(value)
+	// 			return
+	// 		}
+	// 	}
 	// }
 
 }
@@ -119,6 +114,19 @@ func InfoGet(token string) {
 	fmt.Println("#手机:", data.MobilePhone)
 	fmt.Println("#月度积分:", data.MonthRemainingCredit)
 	fmt.Println("#长效积分:", data.ConstantCredit)
+}
+func InfoGet2(token string) {
+	// 个人信息接口
+	uri := "/user/info"
+	info := tools.ApisGet(setting.URL+uri, token)
+	data_result, user_result := utils.InfoLoadJson2(info)
+	fmt.Println("#用户名:", user_result["username"])
+	fmt.Println("#邮  箱:", user_result["email"])
+	fmt.Println("#手机:", data_result["mobile_phone"])
+	fmt.Println("#月度积分:", data_result["month_remaining_credit"])
+	fmt.Println("#长效积分:", data_result["constant_credit"])
+	fmt.Println("#Token:", data_result["token"])
+
 }
 func FaviconPost(query string, token string) {
 	uri := "/query/similar_icon/aggregation"

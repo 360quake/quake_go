@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 18:00:02
+ * @LastEditTime: 2022-09-08 18:01:56
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -60,7 +60,7 @@ func hflag_init() {
 		if !status {
 			return
 		}
-		apis.InfoGet(token.Token)
+		apis.InfoGet2(token.Token)
 	case "search":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
