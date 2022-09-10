@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-10 13:01:14
+ * @LastEditTime: 2022-09-10 13:05:08
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -81,5 +81,14 @@ options:
 ```
 
 ## 用例
+
+```bash
+1、 ./quake init <token>
+
+2、./quake info
+
+3、 ./quake search port:8080 -st 0 -sz 10
+
+```
 
 ![alt](./iShot_2022-09-07_16.48.13.jpg)
