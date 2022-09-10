@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-10 13:05:08
+ * @LastEditTime: 2022-09-10 13:06:50
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -29,7 +29,7 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
 
 ## 更新日志
 
-- 2022-09-07 v1.5:
+- 2022-09-10 v1.5:
 
   - 替换解析的 response 的 json 由 struct 变为 map，方便可以自定义需要返回的结果
   - 支持-fe 多个可选字段，单独输出结果集
