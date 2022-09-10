@@ -2,7 +2,7 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 16:04:43
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 11:10:00
+ * @LastEditTime: 2022-09-09 18:13:59
  * @FilePath: /quake_go/src/utils/LoadJson.go
  * @Description:
  *
@@ -18,10 +18,19 @@ import (
 
 func SeriveLoadJson(body string) (result ServiceJson) {
 	var serivejson ServiceJson
+
 	if err := json.Unmarshal([]byte(body), &serivejson); err == nil {
-		// fmt.Println(serivejson.Data)
-		// data := serivejson.Data
 		result = serivejson
+	} else {
+		fmt.Println(err)
+	}
+	return
+}
+func SeriveLoadJson2(body string) (result []map[string]string) {
+	var servicemapjson map[string][]map[string]string
+
+	if err := json.Unmarshal([]byte(body), &servicemapjson); err == nil {
+		result = servicemapjson["data"]
 	} else {
 		fmt.Println(err)
 	}
@@ -31,11 +40,21 @@ func SeriveLoadJson(body string) (result ServiceJson) {
 func InfoLoadJson(body string) (result InfoJson) {
 	var infojson InfoJson
 	if err := json.Unmarshal([]byte(body), &infojson); err == nil {
-		// fmt.Println(serivejson.Data)
-		// data := serivejson.Data
 		result = infojson
 	} else {
 		fmt.Println(err)
 	}
 	return
+}
+
+func InfoLoadJson2(body string) (map[string]interface{}, map[string]interface{}) {
+	// 多层map，深度解析两次
+	var infomapjson map[string]map[string]interface{}
+	var infomapjson2 map[string]map[string]map[string]interface{}
+	if err := json.Unmarshal([]byte(body), &infomapjson); err != nil {
+	}
+	if err := json.Unmarshal([]byte(body), &infomapjson2); err != nil {
+	}
+	// fmt.Println("###", infomapjson["data"])
+	return infomapjson["data"], infomapjson2["data"]["user"]
 }

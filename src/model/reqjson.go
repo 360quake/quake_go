@@ -2,7 +2,7 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 17:58:31
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 16:19:32
+ * @LastEditTime: 2022-09-10 12:54:02
  * @FilePath: /quake_go/src/model/reqjson.go
  * @Description:model
  *
