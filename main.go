@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-08 18:01:56
+ * @LastEditTime: 2022-09-10 12:56:58
  * @FilePath: /quake_go/main.go
  * @Description:
  *
@@ -34,7 +34,7 @@ func hflag_init() {
 	hflag.AddFlag("ignore_cache", "-ic true or false,default false", hflag.Shorthand("ic"), hflag.Type("bool"), hflag.DefaultValue("false"))
 	hflag.AddFlag("start_time", "-s time flag , default time is time.now.year", hflag.Shorthand("s"), hflag.Type("time"), hflag.DefaultValue(strconv.Itoa(time.Now().Year())+"-01-01"))
 	hflag.AddFlag("end_time", "-e time to end time flag", hflag.Shorthand("e"), hflag.Type("time"), hflag.DefaultValue(time.Now().Format("2006-01-02 15:04:05")))
-	hflag.AddFlag("field", "-fe body to show body infomation", hflag.Shorthand("fe"), hflag.Type("string"), hflag.DefaultValue(""))
+	hflag.AddFlag("field", "-fe swich body,title,host,html_hash,x_powered_by  to show infomation", hflag.Shorthand("fe"), hflag.Type("string"), hflag.DefaultValue(""))
 	hflag.AddFlag("query_txt", "-qt ./file.txt file to query search", hflag.Shorthand("qt"), hflag.Type("string"), hflag.DefaultValue(""))
 	hflag.AddPosFlag("option", "init,info,search")
 	if err := hflag.Parse(); err != nil {

@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-09 18:22:25
+ * @LastEditTime: 2022-09-10 12:55:37
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:
  *
@@ -52,12 +52,9 @@ func SearchServicePost(reqjson Reqjson, token string) {
 			}
 
 		}
-		fmt.Println(tmp)
+		// fmt.Println(tmp)
 		reqjson.Query = tmp
 	}
-	// payload := "{\"query\":\"" + req.Query +
-	// 	"\",\"start\":\"" + req.Start + "\",\"size\":\"" + req.Size +
-	// 	"\"}"
 	datajson, err := json.Marshal(reqjson)
 	if err != nil {
 		panic(err)
@@ -65,9 +62,20 @@ func SearchServicePost(reqjson Reqjson, token string) {
 	fmt.Println(string(datajson))
 	body := tools.ApisPost(setting.URL+uri, datajson, token)
 	data_result := utils.SeriveLoadJson(body).Data
-	for index, value := range data_result {
-		fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port))
+	if reqjson.Field != "" && reqjson.Field != "ip,port" {
+		for index, value := range data_result {
+			if value.Service.HTTP[reqjson.Field] == nil {
+				fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + "  " + strconv.Itoa(value.Port))
+			} else {
+				fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port) + "  " + value.Service.HTTP[reqjson.Field].(string))
+			}
+		}
+	} else {
+		for index, value := range data_result {
+			fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port))
+		}
 	}
+
 	// fields := strings.Split(reqjson.Field, ",")
 	// for _, value := range fields {
 	// 	if strings.Contains(value, "body") {
