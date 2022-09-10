@@ -2,7 +2,7 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 18:10:53
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-08 15:52:55
+ * @LastEditTime: 2022-09-10 12:50:32
  * @FilePath: /quake_go/src/model/respjson.go
  * @Description:
  *
@@ -19,21 +19,23 @@ type ServiceJson struct {
 			Domain string `json:"domain"`
 			IsCdn  bool   `json:"is_cdn"`
 		} `json:"cdn"`
-		Components []struct {
-			ID             string   `json:"id"`
-			ProductCatalog []string `json:"product_catalog"`
-			ProductLevel   string   `json:"product_level"`
-			ProductNameCn  string   `json:"product_name_cn"`
-			ProductNameEn  string   `json:"product_name_en"`
-			ProductType    []string `json:"product_type"`
-			ProductVendor  string   `json:"product_vendor"`
-			Version        string   `json:"version"`
-		} `json:"components"`
-		Hostname string        `json:"hostname"`
-		ID       string        `json:"id"`
-		Images   []interface{} `json:"images"`
-		IP       string        `json:"ip"`
-		IsIpv6   bool          `json:"is_ipv6"`
+		Components []map[string]interface{} `json:"Components"`
+		// Components []struct {
+		// 	ID             string   `json:"id"`
+		// 	ProductCatalog []string `json:"product_catalog"`
+		// 	ProductLevel   string   `json:"product_level"`
+		// 	ProductNameCn  string   `json:"product_name_cn"`
+		// 	ProductNameEn  string   `json:"product_name_en"`
+		// 	ProductType    []string `json:"product_type"`
+		// 	ProductVendor  string   `json:"product_vendor"`
+		// 	Version        string   `json:"version"`
+		// } `json:"components"`
+		Hostname string   `json:"hostname"`
+		ID       string   `json:"id"`
+		Images   []string `json:"images"`
+		IP       string   `json:"ip"`
+		IsIpv6   bool     `json:"is_ipv6"`
+		// Location map[string]string `json:"location"`
 		Location struct {
 			CityCn      string  `json:"city_cn"`
 			CityEn      string  `json:"city_en"`
@@ -54,25 +56,26 @@ type ServiceJson struct {
 		OsVersion string `json:"os_version"`
 		Port      int    `json:"port"`
 		Service   struct {
-			Banner string `json:"banner"`
-			Cert   string `json:"cert"`
-			HTTP   struct {
-				Body    string `json:"body"`
-				Favicon struct {
-					Data     string `json:"data"`
-					Hash     string `json:"hash"`
-					Location string `json:"location"`
-				} `json:"favicon"`
-				Host            string `json:"host"`
-				HTMLHash        string `json:"html_hash"`
-				MetaKeywords    string `json:"meta_keywords"`
-				Path            string `json:"path"`
-				ResponseHeaders string `json:"response_headers"`
-				Server          string `json:"server"`
-				StatusCode      int    `json:"status_code"`
-				Title           string `json:"title"`
-				XPoweredBy      string `json:"x_powered_by"`
-			} `json:"http"`
+			Banner string                 `json:"banner"`
+			Cert   string                 `json:"cert"`
+			HTTP   map[string]interface{} `json:"http"`
+			// HTTP   struct {
+			// 	Body    string `json:"body"`
+			// 	Favicon struct {
+			// 		Data     string `json:"data"`
+			// 		Hash     string `json:"hash"`
+			// 		Location string `json:"location"`
+			// 	} `json:"favicon"`
+			// 	Host            string `json:"host"`
+			// 	HTMLHash        string `json:"html_hash"`
+			// 	MetaKeywords    string `json:"meta_keywords"`
+			// 	Path            string `json:"path"`
+			// 	ResponseHeaders string `json:"response_headers"`
+			// 	Server          string `json:"server"`
+			// 	StatusCode      int    `json:"status_code"`
+			// 	Title           string `json:"title"`
+			// 	XPoweredBy      string `json:"x_powered_by"`
+			// } `json:"http"`
 			Name     string `json:"name"`
 			Product  string `json:"product"`
 			Response string `json:"response"`
