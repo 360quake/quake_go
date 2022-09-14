@@ -2,9 +2,9 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 16:04:43
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-09 18:13:59
+ * @LastEditTime: 2022-09-14 10:39:54
  * @FilePath: /quake_go/src/utils/LoadJson.go
- * @Description:
+ * @Description:解析json的逻辑代码
  *
  * Copyright (c) 2022 by rootphantomer, All Rights Reserved.
  */
@@ -21,6 +21,16 @@ func SeriveLoadJson(body string) (result ServiceJson) {
 
 	if err := json.Unmarshal([]byte(body), &serivejson); err == nil {
 		result = serivejson
+	} else {
+		fmt.Println(err)
+	}
+	return
+}
+func HostLoadJson(body string) (result HostJson) {
+	var hostjson HostJson
+
+	if err := json.Unmarshal([]byte(body), &hostjson); err == nil {
+		result = hostjson
 	} else {
 		fmt.Println(err)
 	}
