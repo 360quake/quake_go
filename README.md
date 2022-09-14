@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-10 13:06:50
+ * @LastEditTime: 2022-09-14 11:05:21
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -28,6 +28,11 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
    ```
 
 ## 更新日志
+
+- 2022-09-14 v1.6:
+
+  - 新增主机数据接口，增加主机数据实时查询功能(example:./quake host 'service:http' -st 0 -sz 20)
+  - 优化命令行提示和代码逻辑
 
 - 2022-09-10 v1.5:
 
