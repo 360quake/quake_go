@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 11:03:15
+ * @LastEditTime: 2022-09-14 14:12:41
  * @FilePath: /quake_go/main.go
  * @Description:主函数
  *
@@ -57,13 +57,13 @@ func hflag_init() {
 	reqjson.Query_txt = hflag.GetString("query_txt")
 	switch strings.ToLower(hflag.GetString("option")) {
 	case "version":
-		fmt.Println("version:1.6")
+		fmt.Println("version:1.7")
 	case "init":
 		if num < 3 {
 			fmt.Println("!!!!token is empty !!!!")
 			return
 		}
-		utils.WriteYaml("./config.yaml", os.Args[2])
+		utils.WriteYaml("./config.yaml", reqjson.Query)
 	case "info":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
