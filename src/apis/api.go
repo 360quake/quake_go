@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 10:59:15
+ * @LastEditTime: 2022-09-14 11:51:09
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:封装请求接口
  *
@@ -61,10 +61,10 @@ func SearchServicePost(reqjson Reqjson, token string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(setting.URL + uri))
+	fmt.Println("->", string(setting.URL+uri))
 	fmt.Println(string(datajson))
 	body := tools.ApisPost(setting.URL+uri, datajson, token)
-	data_result := utils.SeriveLoadJson(body).Data
+	data_result := utils.RespLoadJson[SearchJson](body).Data
 	if reqjson.Field != "" && reqjson.Field != "ip,port" {
 		for index, value := range data_result {
 			if value.Service.HTTP[reqjson.Field] == nil {
@@ -131,7 +131,7 @@ func InfoGet(token string) {
 	// 个人信息接口
 	uri := "/user/info"
 	info := tools.ApisGet(setting.URL+uri, token)
-	data_result, user_result := utils.InfoLoadJson2(info)
+	data_result, user_result := utils.InfoLoadJson[map[string]interface{}](info)
 	fmt.Println("#用户名:", user_result["username"])
 	fmt.Println("#邮  箱:", user_result["email"])
 	fmt.Println("#手机:", data_result["mobile_phone"])
@@ -179,10 +179,10 @@ func HostSearchPost(reqjson Reqjson, token string) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(setting.URL + uri))
+	fmt.Println("->", string(setting.URL+uri))
 	fmt.Println(string(datajson))
 	body := tools.ApisPost(setting.URL+uri, datajson, token)
-	data_result := utils.HostLoadJson(body).Data
+	data_result := utils.RespLoadJson[SearchJson](body).Data
 	for index, value := range data_result {
 		fmt.Println(strconv.Itoa(index+1) + "# " + value.IP)
 	}
