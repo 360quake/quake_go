@@ -2,7 +2,7 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 16:04:43
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 10:39:54
+ * @LastEditTime: 2022-09-14 11:51:59
  * @FilePath: /quake_go/src/utils/LoadJson.go
  * @Description:解析json的逻辑代码
  *
@@ -13,54 +13,22 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
-	. "quake/src/model"
 )
 
-func SeriveLoadJson(body string) (result ServiceJson) {
-	var serivejson ServiceJson
-
-	if err := json.Unmarshal([]byte(body), &serivejson); err == nil {
-		result = serivejson
-	} else {
-		fmt.Println(err)
-	}
-	return
-}
-func HostLoadJson(body string) (result HostJson) {
-	var hostjson HostJson
-
-	if err := json.Unmarshal([]byte(body), &hostjson); err == nil {
-		result = hostjson
-	} else {
-		fmt.Println(err)
-	}
-	return
-}
-func SeriveLoadJson2(body string) (result []map[string]string) {
-	var servicemapjson map[string][]map[string]string
-
-	if err := json.Unmarshal([]byte(body), &servicemapjson); err == nil {
-		result = servicemapjson["data"]
+func RespLoadJson[T any](body string) (result T) {
+	var respjson T
+	if err := json.Unmarshal([]byte(body), &respjson); err == nil {
+		result = respjson
 	} else {
 		fmt.Println(err)
 	}
 	return
 }
 
-func InfoLoadJson(body string) (result InfoJson) {
-	var infojson InfoJson
-	if err := json.Unmarshal([]byte(body), &infojson); err == nil {
-		result = infojson
-	} else {
-		fmt.Println(err)
-	}
-	return
-}
-
-func InfoLoadJson2(body string) (map[string]interface{}, map[string]interface{}) {
+func InfoLoadJson[T any](body string) (T, T) {
 	// 多层map，深度解析两次
-	var infomapjson map[string]map[string]interface{}
-	var infomapjson2 map[string]map[string]map[string]interface{}
+	var infomapjson map[string]T
+	var infomapjson2 map[string]map[string]T
 	if err := json.Unmarshal([]byte(body), &infomapjson); err != nil {
 	}
 	if err := json.Unmarshal([]byte(body), &infomapjson2); err != nil {
