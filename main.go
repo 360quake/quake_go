@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 11:03:15
+ * @LastEditTime: 2022-09-14 14:08:38
  * @FilePath: /quake_go/main.go
  * @Description:主函数
  *
@@ -63,7 +63,7 @@ func hflag_init() {
 			fmt.Println("!!!!token is empty !!!!")
 			return
 		}
-		utils.WriteYaml("./config.yaml", os.Args[2])
+		utils.WriteYaml("./config.yaml", reqjson.Query)
 	case "info":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {

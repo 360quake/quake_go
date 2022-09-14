@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 11:05:21
+ * @LastEditTime: 2022-09-14 14:11:00
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -28,6 +28,11 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
    ```
 
 ## 更新日志
+
+- 2022-09-14 v1.7:
+
+  - 使用 golang 的泛型，减少了代码的冗余和重复性
+  - 要求 golang version >= 1.18
 
 - 2022-09-14 v1.6:
 
