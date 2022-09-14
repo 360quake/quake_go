@@ -2,9 +2,9 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 17:58:31
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-10 12:54:02
+ * @LastEditTime: 2022-09-14 10:25:53
  * @FilePath: /quake_go/src/model/reqjson.go
- * @Description:model
+ * @Description:请求包结构体
  *
  * Copyright (c) 2022 by rootphantomer, All Rights Reserved.
  */
