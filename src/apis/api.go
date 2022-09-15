@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 12:08:25
+ * @LastEditTime: 2022-09-15 10:03:03
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:封装请求接口
  *
@@ -119,7 +119,7 @@ func InfoGet(token string) {
 	// 个人信息接口
 	uri := "/user/info"
 	info := tools.Apis(setting.URL+uri, "GET", []byte{}, token)
-	data_result, user_result := utils.InfoLoadJson[map[string]interface{}](info)
+	data_result, user_result := utils.InfoLoadJson(info)
 	fmt.Println("#用户名:", user_result["username"])
 	fmt.Println("#邮  箱:", user_result["email"])
 	fmt.Println("#手机:", data_result["mobile_phone"])
