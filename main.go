@@ -24,10 +24,10 @@ import (
 )
 
 func main() {
-	hflag_init()
+	hflagInit()
 }
 
-func hflag_init() {
+func hflagInit() {
 	fmt.Println("Starting Quake Cli...")
 	hflag.AddFlag("start", "-st to start number", hflag.Shorthand("st"), hflag.Type("string"), hflag.DefaultValue("0"))
 	hflag.AddFlag("size", "-sz to size number ", hflag.Shorthand("sz"), hflag.Type("string"), hflag.DefaultValue("10"))
