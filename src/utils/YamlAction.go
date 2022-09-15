@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer rootphantomy@hotmail.com
  * @Date: 2022-09-06 10:04:23
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-07 14:52:26
+ * @LastEditTime: 2022-09-15 10:07:59
  * @FilePath: /quake_go/src/utils/YamlAction.go
  * @Description:读写yaml
  *
@@ -35,14 +35,6 @@ func WriteYaml(path string, token string) {
 		fmt.Printf("token init success!")
 	}
 
-}
-
-func checkError(err error) bool {
-	// 判断是否有错误，有错误nil，返回false，无返回true
-	if err != nil {
-		return true
-	}
-	return false
 }
 
 func ReadYaml(path string) (TokenInfo, bool) {

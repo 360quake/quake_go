@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 15:36:10
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 12:08:25
+ * @LastEditTime: 2022-09-15 10:16:42
  * @FilePath: /quake_go/src/apis/api.go
  * @Description:封装请求接口
  *
@@ -38,11 +38,6 @@ func SearchServicePost(reqjson Reqjson, token string) {
 	//      "end_time": "2021-02-01 00:00:00"
 	// }'
 	uri := "/search/quake_service"
-	reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
-	if reqjson.Query == "" || reqjson.Query == "?" {
-		fmt.Println("No query specified")
-		return
-	}
 	if reqjson.Query_txt != "" {
 		bytedata, _ := utils.ReadLine(reqjson.Query_txt)
 		tmp := ""
@@ -56,6 +51,12 @@ func SearchServicePost(reqjson Reqjson, token string) {
 		}
 		// fmt.Println(tmp)
 		reqjson.Query = tmp
+	} else {
+		reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
+		if reqjson.Query == "" || reqjson.Query == "?" {
+			fmt.Println("No query specified")
+			return
+		}
 	}
 	datajson, err := json.Marshal(reqjson)
 	if err != nil {
@@ -119,7 +120,7 @@ func InfoGet(token string) {
 	// 个人信息接口
 	uri := "/user/info"
 	info := tools.Apis(setting.URL+uri, "GET", []byte{}, token)
-	data_result, user_result := utils.InfoLoadJson[map[string]interface{}](info)
+	data_result, user_result := utils.InfoLoadJson(info)
 	fmt.Println("#用户名:", user_result["username"])
 	fmt.Println("#邮  箱:", user_result["email"])
 	fmt.Println("#手机:", data_result["mobile_phone"])
@@ -144,11 +145,6 @@ func HostSearchPost(reqjson Reqjson, token string) {
 	//	}'
 
 	uri := "/search/quake_host"
-	reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
-	if reqjson.Query == "" || reqjson.Query == "?" {
-		fmt.Println("No query specified")
-		return
-	}
 	if reqjson.Query_txt != "" {
 		bytedata, _ := utils.ReadLine(reqjson.Query_txt)
 		tmp := ""
@@ -162,7 +158,14 @@ func HostSearchPost(reqjson Reqjson, token string) {
 		}
 		// fmt.Println(tmp)
 		reqjson.Query = tmp
+	} else {
+		reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
+		if reqjson.Query == "" || reqjson.Query == "?" {
+			fmt.Println("No query specified")
+			return
+		}
 	}
+
 	datajson, err := json.Marshal(reqjson)
 	if err != nil {
 		panic(err)
