@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 14:11:00
+ * @LastEditTime: 2022-09-15 10:10:17
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -74,14 +74,15 @@ rust 项目代码 移步这里——https://github.com/360quake/quake_rs/
 
 ```bash
 Starting Quake Cli...
-usage: quake [option] [-e,end_time time=2022-09-07 16:47:32] [-fe,field string] [-h,help bool] [-ic,ignore_cache bool=false] [-qt,query_txt string] [-sz,size string=10] [-st,start string=0] [-s,start_time time=2022-01-01]
+usage: quake [option] [args] [-e,end_time time=2022-09-15 10:10:04] [-fe,field string] [-h,help bool] [-ic,ignore_cache bool=false] [-qt,query_txt string] [-sz,size string=10] [-st,start string=0] [-s,start_time time=2022-01-01]
 
 positional options:
-       option          [string]                    init,info,search
+       option          [string]                    init,info,search,host
+       args            [string]                    query value,example port:443
 
 options:
-   -e, --end_time      [time=2022-09-07 16:47:32]  -e time to end time flag
-  -fe, --field         [string]                    -fe body to show body infomation
+   -e, --end_time      [time=2022-09-15 10:10:04]  -e time to end time flag
+  -fe, --field         [string]                    -fe swich body,title,host,html_hash,x_powered_by  to show infomation
    -h, --help          [bool]                      show usage
   -ic, --ignore_cache  [bool=false]                -ic true or false,default false
   -qt, --query_txt     [string]                    -qt ./file.txt file to query search
