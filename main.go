@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 14:12:41
+ * @LastEditTime: 2022-09-16 10:13:32
  * @FilePath: /quake_go/main.go
  * @Description:主函数
  *
@@ -55,6 +55,10 @@ func hflagInit() {
 	reqjson.Ignore_cache = hflag.GetBool("ignore_cache")
 	reqjson.Field = hflag.GetString("field")
 	reqjson.Query_txt = hflag.GetString("query_txt")
+	if sizelen, _ := strconv.Atoi(reqjson.Size); sizelen > 50 {
+		fmt.Println("size only less than or equal to 50")
+		return
+	}
 	switch strings.ToLower(hflag.GetString("option")) {
 	case "version":
 		fmt.Println("version:1.7")
