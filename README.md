@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 11:31:06
+ * @LastEditTime: 2022-09-19 11:33:27
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -111,6 +111,10 @@ options:
 ![alt](./iShot_2022-09-07_16.48.13.jpg)
 
 ## 模块使用
+
+```bash
+go get -u github.com/360quake/quake
+```
 
 ```golang
 package main
