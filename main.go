@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 10:59:14
+ * @LastEditTime: 2022-09-19 11:01:28
  * @FilePath: /quake_go/main.go
  * @Description:主函数
  *
@@ -59,7 +59,7 @@ func hflagInit() {
 	}
 	switch strings.ToLower(hflag.GetString("option")) {
 	case "version":
-		fmt.Println("version:1.7")
+		fmt.Println("version:2.0")
 	case "init":
 		if num < 3 {
 			fmt.Println("!!!!token is empty !!!!")

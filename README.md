@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 10:45:40
+ * @LastEditTime: 2022-09-19 11:00:33
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -32,7 +32,7 @@ rust 项目代码 移步这里——<https://github.com/360quake/quake_rs/>
 - 2022-09-14 v2.0:
 
   - 支持其他项目可以引入 quake 模块
-  - import "quake/packages"
+  - import "github.com/360quake/quake/utils"
 
 - 2022-09-14 v1.7:
 
@@ -112,9 +112,9 @@ options:
 ## 模块使用
 
 ```golang
-import 360quake/quake/packages
+import 360quake/quake/utils
 
-var reqjson packages.Reqjson
+var reqjson utils.Reqjson
 reqjson.Query = hflag.GetString("args")
 reqjson.Start = hflag.GetString("start")
 reqjson.Size = hflag.GetString("size")
@@ -125,9 +125,9 @@ reqjson.Field = hflag.GetString("field")
 reqjson.Query_txt = hflag.GetString("file_txt")
 
 
-packages.InfoGet(token.Token)
-packages.SearchServicePost(reqjson, token.Token)
-packages.HostSearchPost(reqjson, token.Token)
+utils.InfoGet(token.Token)
+utils.SearchServicePost(reqjson, token.Token)
+utils.HostSearchPost(reqjson, token.Token)
 
 返回包解析需要自己解析
 ```
