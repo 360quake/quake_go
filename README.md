@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 11:21:02
+ * @LastEditTime: 2022-09-19 11:31:06
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -113,7 +113,15 @@ options:
 ## 模块使用
 
 ```golang
-import 360quake/quake/utils
+package main
+
+import (
+ "fmt"
+
+ "github.com/360quake/quake_go/utils"
+)
+
+func main() {
 
 var reqjson utils.Reqjson
 reqjson.Query = hflag.GetString("args")
@@ -125,12 +133,13 @@ reqjson.Ignore_cache = hflag.GetBool("ignore_cache")
 reqjson.Field = hflag.GetString("field")
 reqjson.Query_txt = hflag.GetString("file_txt")
 
+body := utils.InfoGet("<token>")
+body = utils.SearchServicePost(reqjson, "<token>")
+body = utils.HostSearchPost(reqjson, "<token>")
+fmt.Println(body)
+}
 
-utils.InfoGet(token.Token)
-utils.SearchServicePost(reqjson, token.Token)
-utils.HostSearchPost(reqjson, token.Token)
-
-返回包解析需要自己解析
+返回包都是string解析需要自己解析
 ```
 
 ![alt](./iShot_2022-09-07_16.48.13.jpg)
