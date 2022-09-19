@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 10:40:41
+ * @LastEditTime: 2022-09-19 10:59:14
  * @FilePath: /quake_go/main.go
  * @Description:主函数
  *
@@ -13,8 +13,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"quake/packages"
-	"quake/src/utils"
+	"quake/utils"
 	"strconv"
 	"strings"
 	"time"
@@ -45,7 +44,7 @@ func hflagInit() {
 		fmt.Println("./quake -h get help!")
 		return
 	}
-	var reqjson packages.Reqjson
+	var reqjson utils.Reqjson
 	reqjson.Query = hflag.GetString("args")
 	reqjson.Start = hflag.GetString("start")
 	reqjson.Size = hflag.GetString("size")
@@ -72,19 +71,44 @@ func hflagInit() {
 		if !status {
 			return
 		}
-		packages.InfoGet(token.Token)
+		info := utils.InfoGet(token.Token)
+		data_result, user_result := utils.InfoLoadJson(info)
+		fmt.Println("#用户名:", user_result["username"])
+		fmt.Println("#邮  箱:", user_result["email"])
+		fmt.Println("#手机:", data_result["mobile_phone"])
+		fmt.Println("#月度积分:", data_result["month_remaining_credit"])
+		fmt.Println("#长效积分:", data_result["constant_credit"])
+		fmt.Println("#Token:", data_result["token"])
 	case "search":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
 			return
 		}
-		packages.SearchServicePost(reqjson, token.Token)
+		body := utils.SearchServicePost(reqjson, token.Token)
+		data_result := utils.RespLoadJson[utils.SearchJson](body).Data
+		if reqjson.Field != "" && reqjson.Field != "ip,port" {
+			for index, value := range data_result {
+				if value.Service.HTTP[reqjson.Field] == nil {
+					fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + "  " + strconv.Itoa(value.Port))
+				} else {
+					fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port) + "  " + value.Service.HTTP[reqjson.Field].(string))
+				}
+			}
+		} else {
+			for index, value := range data_result {
+				fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port))
+			}
+		}
 	case "host":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
 			return
 		}
-		packages.HostSearchPost(reqjson, token.Token)
+		body := utils.HostSearchPost(reqjson, token.Token)
+		data_result := utils.RespLoadJson[utils.SearchJson](body).Data
+		for index, value := range data_result {
+			fmt.Println(strconv.Itoa(index+1) + "# " + value.IP)
+		}
 	// case "favicon":
 	// 	fmt.Println("favicon相似度接口待完成。。。")
 	// 	token, status := utils.ReadYaml("./config.yaml")

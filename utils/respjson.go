@@ -2,14 +2,14 @@
  * @Author: rootphantomer zhoufei1@360.cn
  * @Date: 2022-09-06 18:10:53
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 11:40:04
- * @FilePath: /quake_go/src/model/respjson.go
+ * @LastEditTime: 2022-09-19 10:52:01
+ * @FilePath: /quake_go/utils/respjson.go
  * @Description:返回包结构体
  *
  * Copyright (c) 2022 by rootphantomer, All Rights Reserved.
  */
 
-package model
+package utils
 
 type SearchJson struct {
 	Code int `json:"code"`
