@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 11:01:28
+ * @LastEditTime: 2022-09-19 11:13:00
  * @FilePath: /quake_go/main.go
  * @Description:主函数
  *
@@ -13,10 +13,11 @@ package main
 import (
 	"fmt"
 	"os"
-	"quake/utils"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/360quake/quake_go/utils"
 
 	"github.com/hpifu/go-kit/hflag"
 )

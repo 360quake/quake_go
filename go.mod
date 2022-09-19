@@ -1,4 +1,4 @@
-module quake
+module github.com/360quake/quake_go
 
 go 1.19
 
