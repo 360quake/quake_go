@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-08-31 17:03:03
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-16 10:37:27
+ * @LastEditTime: 2022-09-19 10:40:41
  * @FilePath: /quake_go/main.go
  * @Description:主函数
  *
@@ -13,8 +13,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"quake/src/apis"
-	. "quake/src/model"
+	"quake/packages"
 	"quake/src/utils"
 	"strconv"
 	"strings"
@@ -46,7 +45,7 @@ func hflagInit() {
 		fmt.Println("./quake -h get help!")
 		return
 	}
-	var reqjson Reqjson
+	var reqjson packages.Reqjson
 	reqjson.Query = hflag.GetString("args")
 	reqjson.Start = hflag.GetString("start")
 	reqjson.Size = hflag.GetString("size")
@@ -73,19 +72,19 @@ func hflagInit() {
 		if !status {
 			return
 		}
-		apis.InfoGet(token.Token)
+		packages.InfoGet(token.Token)
 	case "search":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
 			return
 		}
-		apis.SearchServicePost(reqjson, token.Token)
+		packages.SearchServicePost(reqjson, token.Token)
 	case "host":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
 			return
 		}
-		apis.HostSearchPost(reqjson, token.Token)
+		packages.HostSearchPost(reqjson, token.Token)
 	// case "favicon":
 	// 	fmt.Println("favicon相似度接口待完成。。。")
 	// 	token, status := utils.ReadYaml("./config.yaml")
