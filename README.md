@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 11:03:12
+ * @LastEditTime: 2022-09-19 11:21:02
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -32,7 +32,8 @@ rust 项目代码 移步这里——<https://github.com/360quake/quake_rs/>
 - 2022-09-19 v2.0:
 
   - 支持其他项目可以引入 quake 模块
-  - import "github.com/360quake/quake/utils"
+  - import "github.com/360quake/quake_go"
+  - 也可以使用这个项目的模块（<https://github.com/jinycoo/go-quake>）
 
 - 2022-09-14 v1.7:
 
