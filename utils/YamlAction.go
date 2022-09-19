@@ -2,8 +2,8 @@
  * @Author: ph4nt0mer rootphantomy@hotmail.com
  * @Date: 2022-09-06 10:04:23
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-15 10:07:59
- * @FilePath: /quake_go/src/utils/YamlAction.go
+ * @LastEditTime: 2022-09-19 10:52:11
+ * @FilePath: /quake_go/utils/YamlAction.go
  * @Description:读写yaml
  *
  * Copyright (c) 2022 by ph4nt0mer, All Rights Reserved.
