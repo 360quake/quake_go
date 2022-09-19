@@ -2,7 +2,7 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 18:39:52
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-19 11:33:27
+ * @LastEditTime: 2022-09-19 11:37:12
  * @FilePath: /quake_go/README.md
  * @Description:
  *
@@ -113,7 +113,7 @@ options:
 ## 模块使用
 
 ```bash
-go get -u github.com/360quake/quake
+go get -u github.com/360quake/quake_go
 ```
 
 ```golang
