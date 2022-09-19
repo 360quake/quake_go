@@ -1,14 +1,14 @@
 /*
  * @Author: rootphantomer zhoufei1@360.cn
- * @Date: 2022-09-06 17:58:31
+ * @Date: 2022-09-19 10:54:59
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 10:25:53
- * @FilePath: /quake_go/src/model/reqjson.go
- * @Description:请求包结构体
+ * @LastEditTime: 2022-09-19 10:55:01
+ * @FilePath: /quake_go/utils/test.go
+ * @Description:
  *
  * Copyright (c) 2022 by rootphantomer, All Rights Reserved.
  */
-package model
+package utils
 
 import . "time"
 

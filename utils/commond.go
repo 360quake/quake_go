@@ -2,13 +2,13 @@
  * @Author: ph4nt0mer
  * @Date: 2022-09-01 10:49:31
  * @LastEditors: rootphantomer
- * @LastEditTime: 2022-09-14 12:09:32
- * @FilePath: /quake_go/src/tools/commond.go
+ * @LastEditTime: 2022-09-19 10:51:48
+ * @FilePath: /quake_go/utils/commond.go
  * @Description:
  *
  * Copyright (c) 2022 by ph4nt0mer, All Rights Reserved.
  */
-package tools
+package utils
 
 import (
 	"bytes"
