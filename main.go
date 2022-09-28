@@ -49,11 +49,11 @@ func hflagInit() {
 	reqjson.Query = hflag.GetString("args")
 	reqjson.Start = hflag.GetString("start")
 	reqjson.Size = hflag.GetString("size")
-	reqjson.Start_time = hflag.GetTime("start_time")
-	reqjson.End_time = hflag.GetTime("end_time")
-	reqjson.Ignore_cache = hflag.GetBool("ignore_cache")
+	reqjson.StartTime = hflag.GetTime("start_time")
+	reqjson.EndTime = hflag.GetTime("end_time")
+	reqjson.IgnoreCache = hflag.GetBool("ignore_cache")
 	reqjson.Field = hflag.GetString("field")
-	reqjson.Query_txt = hflag.GetString("file_txt")
+	reqjson.QueryTxt = hflag.GetString("file_txt")
 	if sizelen, _ := strconv.Atoi(reqjson.Size); sizelen > 50 {
 		fmt.Println("size only less than or equal to 50")
 		return
@@ -73,22 +73,22 @@ func hflagInit() {
 			return
 		}
 		info := utils.InfoGet(token.Token)
-		data_result, user_result := utils.InfoLoadJson(info)
-		fmt.Println("#用户名:", user_result["username"])
-		fmt.Println("#邮  箱:", user_result["email"])
-		fmt.Println("#手机:", data_result["mobile_phone"])
-		fmt.Println("#月度积分:", data_result["month_remaining_credit"])
-		fmt.Println("#长效积分:", data_result["constant_credit"])
-		fmt.Println("#Token:", data_result["token"])
+		dataResult, userResult := utils.InfoLoadJson(info)
+		fmt.Println("#用户名:", userResult["username"])
+		fmt.Println("#邮  箱:", userResult["email"])
+		fmt.Println("#手机:", dataResult["mobile_phone"])
+		fmt.Println("#月度积分:", dataResult["month_remaining_credit"])
+		fmt.Println("#长效积分:", dataResult["constant_credit"])
+		fmt.Println("#Token:", dataResult["token"])
 	case "search":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
 			return
 		}
 		body := utils.SearchServicePost(reqjson, token.Token)
-		data_result := utils.RespLoadJson[utils.SearchJson](body).Data
+		dataResult := utils.RespLoadJson[utils.SearchJson](body).Data
 		if reqjson.Field != "" && reqjson.Field != "ip,port" {
-			for index, value := range data_result {
+			for index, value := range dataResult {
 				if value.Service.HTTP[reqjson.Field] == nil {
 					fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + "  " + strconv.Itoa(value.Port))
 				} else {
@@ -96,7 +96,7 @@ func hflagInit() {
 				}
 			}
 		} else {
-			for index, value := range data_result {
+			for index, value := range dataResult {
 				fmt.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port))
 			}
 		}
@@ -106,8 +106,8 @@ func hflagInit() {
 			return
 		}
 		body := utils.HostSearchPost(reqjson, token.Token)
-		data_result := utils.RespLoadJson[utils.SearchJson](body).Data
-		for index, value := range data_result {
+		dataResult := utils.RespLoadJson[utils.SearchJson](body).Data
+		for index, value := range dataResult {
 			fmt.Println(strconv.Itoa(index+1) + "# " + value.IP)
 		}
 	// case "favicon":
