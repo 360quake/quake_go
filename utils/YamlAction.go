@@ -12,7 +12,6 @@ package utils
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -28,8 +27,8 @@ func WriteYaml(path string, token string) {
 	tokeninfo.Token = token
 	data, err := yaml.Marshal(tokeninfo)
 	//config赋值777操作
-	err = ioutil.WriteFile(path, data, 0777)
-	if err = ioutil.WriteFile(path, data, 0777); err != nil {
+	err = os.WriteFile(path, data, 0777)
+	if err = os.WriteFile(path, data, 0777); err != nil {
 		fmt.Printf("token init fail!")
 	} else {
 		fmt.Printf("token init success!")
@@ -43,8 +42,11 @@ func ReadYaml(path string) (TokenInfo, bool) {
 	token.Token = ""
 	_, err := os.Stat(path)
 	if err == nil {
-		content, _ := ioutil.ReadFile(path)
-		yaml.Unmarshal(content, &token)
+		content, _ := os.ReadFile(path)
+		err := yaml.Unmarshal(content, &token)
+		if err != nil {
+			return TokenInfo{}, false
+		}
 		return token, true
 	}
 	if os.IsNotExist(err) { //如果返回的错误类型使用os.isNotExist()判断为true，说明文件或者文件夹不存在

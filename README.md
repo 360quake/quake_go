@@ -29,52 +29,57 @@ rust 项目代码 移步这里——<https://github.com/360quake/quake_rs/>
 
 ## 更新日志
 
+- 2022-09-28 v2.0.1:
+
+    - 优化代码，更换即将弃用的函数
+
 - 2022-09-19 v2.0:
 
-  - 支持其他项目可以引入 quake 模块
-  - import "github.com/360quake/quake_go"
-  - 也可以使用这个项目的模块（<https://github.com/jinycoo/go-quake>）
+    - 支持其他项目可以引入 quake 模块
+    - import "github.com/360quake/quake_go"
+    - 也可以使用这个项目的模块（<https://github.com/jinycoo/go-quake>）
 
 - 2022-09-14 v1.7:
 
-  - 使用 golang 的泛型，减少了代码的冗余和重复性
-  - 要求 golang version >= 1.18
+    - 使用 golang 的泛型，减少了代码的冗余和重复性
+    - 要求 golang version >= 1.18
 
 - 2022-09-14 v1.6:
 
-  - 新增主机数据接口，增加主机数据实时查询功能(example:./quake host 'service:http' -st 0 -sz 20)
-  - 优化命令行提示和代码逻辑
+    - 新增主机数据接口，增加主机数据实时查询功能(example:./quake host 'service:http' -st 0 -sz 20)
+    - 优化命令行提示和代码逻辑
 
 - 2022-09-10 v1.5:
 
-  - 替换解析的 response 的 json 由 struct 变为 map，方便可以自定义需要返回的结果
-  - 支持-fe 多个可选字段，单独输出结果集
+    - 替换解析的 response 的 json 由 struct 变为 map，方便可以自定义需要返回的结果
+    - 支持-fe 多个可选字段，单独输出结果集
 
 - 2022-09-07 v1.4:
 
-  - 替换 hflag 来解析命令行参数，使参数拓展开发更简单
-  - 更新 query 接口为 search
-  - 支持 -ft 参数，可以使用载入一个逐行有搜索语法的 txt 文本，然后统一结果输出 ip:port
+    - 替换 hflag 来解析命令行参数，使参数拓展开发更简单
+    - 更新 query 接口为 search
+    - 支持 -ft 参数，可以使用载入一个逐行有搜索语法的 txt 文本，然后统一结果输出 ip:port
 
 - 2022-09-07 v1.3:
 
-  - 支持-ic,-s,-e(ignore_cache,start_time,end_time)参数传入,start_time 初始化是当年年初 01-01，end_time 默认初始化是 now()
-  - 优化发包的结构体解析
+    - 支持-ic,-s,-e(ignore_cache,start_time,end_time)参数传入,start_time 初始化是当年年初 01-01，end_time 默认初始化是
+      now()
+    - 优化发包的结构体解析
 
 - 2022-09-06 v1.2:
 
-  - 默认输出格式为 ip:port(见下图)
-  - 新增-t=body 可以输出 body 信息
+    - 默认输出格式为 ip:port(见下图)
+    - 新增-t=body 可以输出 body 信息
 
 - 2022-09-06 v1.1:
 
-  - 简化参数传参格式
-  - 将 token 固化在当前目录
+    - 简化参数传参格式
+    - 将 token 固化在当前目录
 
 - 2022-09-01 v1.0:
 
-  - 新增 info 接口功能
-  - 新增 service 接口功能
+    - 新增 info 接口功能
+    - 新增 service 接口功能
 
 ## 使用
 
@@ -120,27 +125,27 @@ go get -u github.com/360quake/quake_go
 package main
 
 import (
- "fmt"
+	"fmt"
 
- "github.com/360quake/quake_go/utils"
+	"github.com/360quake/quake_go/utils"
 )
 
 func main() {
 
-var reqjson utils.Reqjson
-reqjson.Query = hflag.GetString("args")
-reqjson.Start = hflag.GetString("start")
-reqjson.Size = hflag.GetString("size")
-reqjson.Start_time = hflag.GetTime("start_time")
-reqjson.End_time = hflag.GetTime("end_time")
-reqjson.Ignore_cache = hflag.GetBool("ignore_cache")
-reqjson.Field = hflag.GetString("field")
-reqjson.Query_txt = hflag.GetString("file_txt")
+	var reqjson utils.Reqjson
+	reqjson.Query = hflag.GetString("args")
+	reqjson.Start = hflag.GetString("start")
+	reqjson.Size = hflag.GetString("size")
+	reqjson.Start_time = hflag.GetTime("start_time")
+	reqjson.End_time = hflag.GetTime("end_time")
+	reqjson.Ignore_cache = hflag.GetBool("ignore_cache")
+	reqjson.Field = hflag.GetString("field")
+	reqjson.Query_txt = hflag.GetString("file_txt")
 
-body := utils.InfoGet("<token>")
-body = utils.SearchServicePost(reqjson, "<token>")
-body = utils.HostSearchPost(reqjson, "<token>")
-fmt.Println(body)
+	body := utils.InfoGet("<token>")
+	body = utils.SearchServicePost(reqjson, "<token>")
+	body = utils.HostSearchPost(reqjson, "<token>")
+	fmt.Println(body)
 }
 
 返回包都是string解析需要自己解析

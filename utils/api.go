@@ -33,8 +33,8 @@ func SearchServicePost(reqjson Reqjson, token string) string {
 	//      "end_time": "2021-02-01 00:00:00"
 	// }'
 	uri := "/search/quake_service"
-	if reqjson.Query_txt != "" {
-		bytedata, _ := ReadLine(reqjson.Query_txt)
+	if reqjson.QueryTxt != "" {
+		bytedata, _ := ReadLine(reqjson.QueryTxt)
 		tmp := ""
 		for _, v := range bytedata {
 			if tmp == "" {
@@ -122,8 +122,8 @@ func HostSearchPost(reqjson Reqjson, token string) string {
 	//	}'
 
 	uri := "/search/quake_host"
-	if reqjson.Query_txt != "" {
-		bytedata, _ := ReadLine(reqjson.Query_txt)
+	if reqjson.QueryTxt != "" {
+		bytedata, _ := ReadLine(reqjson.QueryTxt)
 		tmp := ""
 		for _, v := range bytedata {
 			if tmp == "" {

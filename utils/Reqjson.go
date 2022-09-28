@@ -13,12 +13,12 @@ package utils
 import . "time"
 
 type Reqjson struct {
-	Query        string `json:"query"`
-	Start        string `json:"start,omitempty"`
-	Size         string `json:"size,omitempty"`
-	Ignore_cache bool   `json:"ignore_cache,omitempty"`
-	Start_time   Time   `json:"start_time,omitempty"`
-	End_time     Time   `json:"end_time,omitempty"`
-	Field        string `json:"-"`
-	Query_txt    string `json:"-"`
+	Query       string `json:"query"`
+	Start       string `json:"start,omitempty"`
+	Size        string `json:"size,omitempty"`
+	IgnoreCache bool   `json:"ignore_cache,omitempty"`
+	StartTime   Time   `json:"start_time,omitempty"`
+	EndTime     Time   `json:"end_time,omitempty"`
+	Field       string `json:"-"`
+	QueryTxt    string `json:"-"`
 }
