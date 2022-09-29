@@ -13,12 +13,14 @@ package utils
 import (
 	"bytes"
 	"fmt"
+	"github.com/fatih/color"
 	"io"
 	"net/http"
 	"strings"
 )
 
 func Apis(url string, method string, data []byte, token string) string {
+	errcolor := color.New(color.FgRed)
 	client := &http.Client{}
 	var req *http.Request
 	var err error
@@ -29,7 +31,7 @@ func Apis(url string, method string, data []byte, token string) string {
 		req, err = http.NewRequest("GET", url, nil)
 	}
 	if err != nil {
-		fmt.Println(err)
+		errcolor.Println(err)
 		return err.Error()
 	}
 	req.Header.Add("X-QuakeToken", token)
@@ -37,25 +39,25 @@ func Apis(url string, method string, data []byte, token string) string {
 
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		errcolor.Println(err)
 		return err.Error()
 	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-			panic(err)
+			errcolor.Println(err)
 		}
 	}(res.Body)
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println(err)
+		errcolor.Println(err)
 		return err.Error()
 	}
 	fmt.Println("result:")
 	// fmt.Println(string(body))
 	if strings.Contains(string(body), "quake/login") {
-		fmt.Println("token expired,please init new token")
+		errcolor.Println("token expired,please init new token")
 	}
 	return string(body)
 }
