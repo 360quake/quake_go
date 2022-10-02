@@ -14,7 +14,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/fatih/color"
-	"strings"
 )
 
 func FilterableServiceGET(token string) {
@@ -49,7 +48,7 @@ func SearchServicePost(reqjson Reqjson, token string) string {
 		// fmt.Println(tmp)
 		reqjson.Query = tmp
 	} else {
-		reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
+		//reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
 		if reqjson.Query == "" || reqjson.Query == "?" {
 			// fmt.Println("No query specified")
 			// return
@@ -138,7 +137,7 @@ func HostSearchPost(reqjson Reqjson, token string) string {
 		// fmt.Println(tmp)
 		reqjson.Query = tmp
 	} else {
-		reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
+		//reqjson.Query = strings.ReplaceAll(reqjson.Query, " ", "")
 		if reqjson.Query == "" || reqjson.Query == "?" {
 			// fmt.Println("No query specified")
 			panic("No query specified")
