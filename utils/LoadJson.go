@@ -12,10 +12,12 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 func RespLoadJson[T any](body string) (respjson T) {
 	if err := json.Unmarshal([]byte(body), &respjson); err != nil {
+		fmt.Println(body)
 		panic(err)
 	}
 	return
@@ -25,6 +27,7 @@ func InfoLoadJson(body string) (data map[string]interface{}, user map[string]int
 	// 多层map，深度解析两次
 	var infomapjson map[string]interface{}
 	if err := json.Unmarshal([]byte(body), &infomapjson); err != nil {
+		fmt.Println(body)
 		panic(err)
 	}
 	data = infomapjson["data"].(map[string]interface{})
