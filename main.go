@@ -12,25 +12,29 @@ package main
 
 import (
 	"fmt"
+	"github.com/360quake/quake_go/utils"
+	"github.com/fatih/color"
 	"os"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/360quake/quake_go/utils"
-	"github.com/fatih/color"
-
 	"github.com/hpifu/go-kit/hflag"
+
+	"go.uber.org/automaxprocs/maxprocs"
+)
+
+var (
+	reqjson utils.Reqjson
 )
 
 func main() {
-	hflagInit()
+	maxprocs.Set(maxprocs.Logger(func(string, ...any) {}))
+	action(hflagInit())
 }
 
-func hflagInit() {
+func hflagInit() (num int) {
 	errorColor := color.New(color.FgRed)
-	successColor := color.New(color.FgBlue)
-
 	fmt.Println("Starting Quake Cli...")
 	hflag.AddFlag("start", "-st to start number", hflag.Shorthand("st"), hflag.Type("string"), hflag.DefaultValue("0"))
 	hflag.AddFlag("size", "-sz to size number ", hflag.Shorthand("sz"), hflag.Type("string"), hflag.DefaultValue("10"))
@@ -44,12 +48,17 @@ func hflagInit() {
 	if err := hflag.Parse(); err != nil {
 		panic(err)
 	}
-	num := len(os.Args)
+	num = len(os.Args)
 	if num < 2 {
 		errorColor.Println("./quake -h get help!")
-		return
+		os.Exit(0)
 	}
-	var reqjson utils.Reqjson
+	return
+}
+
+func action(num int) {
+	successColor := color.New(color.FgBlue)
+	errorColor := color.New(color.FgRed)
 	reqjson.Query = hflag.GetString("args")
 	reqjson.Start = hflag.GetString("start")
 	reqjson.Size = hflag.GetString("size")
