@@ -22,6 +22,7 @@ jobs:
           prerelease: false
 
   publish:
+    needs: release
     name: Release Go Binary
     runs-on: ubuntu-latest
     strategy:
