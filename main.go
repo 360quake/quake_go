@@ -73,7 +73,7 @@ func action(num int) {
 	}
 	switch strings.ToLower(hflag.GetString("option")) {
 	case "version":
-		successColor.Println("version:2.0.2")
+		successColor.Println("version:2.0.3")
 	case "init":
 		if num < 3 {
 			errorColor.Println("!!!!token is empty !!!!")

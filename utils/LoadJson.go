@@ -13,12 +13,14 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 )
 
 func RespLoadJson[T any](body string) (respjson T) {
 	if err := json.Unmarshal([]byte(body), &respjson); err != nil {
 		fmt.Println(body)
-		panic(err)
+		//panic(err)
+		os.Exit(0)
 	}
 	return
 }
@@ -28,9 +30,18 @@ func InfoLoadJson(body string) (data map[string]interface{}, user map[string]int
 	var infomapjson map[string]interface{}
 	if err := json.Unmarshal([]byte(body), &infomapjson); err != nil {
 		fmt.Println(body)
-		panic(err)
+		//panic(err)
+		os.Exit(0)
 	}
-	data = infomapjson["data"].(map[string]interface{})
-	user = data["user"].(map[string]interface{})
+	data, ok := infomapjson["data"].(map[string]interface{})
+	if !ok {
+		fmt.Println(infomapjson)
+		os.Exit(0)
+	}
+	user, ok = data["user"].(map[string]interface{})
+	if !ok {
+		fmt.Println(infomapjson)
+		os.Exit(0)
+	}
 	return
 }
