@@ -11,10 +11,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/360quake/quake_go/utils"
 	"github.com/fatih/color"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -25,7 +25,9 @@ import (
 )
 
 var (
-	reqjson utils.Reqjson
+	reqjson      utils.Reqjson
+	successColor = color.New(color.FgBlue)
+	errorColor   = color.New(color.FgRed)
 )
 
 func main() {
@@ -34,8 +36,7 @@ func main() {
 }
 
 func hflagInit() (num int) {
-	errorColor := color.New(color.FgRed)
-	fmt.Println("Starting Quake Cli...")
+	successColor.Println("Starting Quake Cli...")
 	hflag.AddFlag("start", "-st to start number", hflag.Shorthand("st"), hflag.Type("string"), hflag.DefaultValue("0"))
 	hflag.AddFlag("size", "-sz to size number ", hflag.Shorthand("sz"), hflag.Type("string"), hflag.DefaultValue("10"))
 	hflag.AddFlag("ignore_cache", "-ic true or false,default false", hflag.Shorthand("ic"), hflag.Type("bool"), hflag.DefaultValue("false"))
@@ -57,8 +58,6 @@ func hflagInit() (num int) {
 }
 
 func action(num int) {
-	successColor := color.New(color.FgBlue)
-	errorColor := color.New(color.FgRed)
 	reqjson.Query = hflag.GetString("args")
 	reqjson.Start = hflag.GetString("start")
 	reqjson.Size = hflag.GetString("size")
@@ -73,7 +72,7 @@ func action(num int) {
 	}
 	switch strings.ToLower(hflag.GetString("option")) {
 	case "version":
-		successColor.Println("version:2.0.3")
+		successColor.Printf("Clash %s %s %s with %s \n", "2.0.3", runtime.GOOS, runtime.GOARCH, runtime.Version())
 	case "init":
 		if num < 3 {
 			errorColor.Println("!!!!token is empty !!!!")
