@@ -82,7 +82,7 @@ func action(num int) {
 	case "info":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
-			return
+			os.Exit(0)
 		}
 		info := utils.InfoGet(token.Token)
 		dataResult, userResult := utils.InfoLoadJson(info)
@@ -115,7 +115,7 @@ func action(num int) {
 	case "host":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
-			return
+			os.Exit(0)
 		}
 		body := utils.HostSearchPost(reqjson, token.Token)
 		dataResult := utils.RespLoadJson[utils.SearchJson](body).Data
