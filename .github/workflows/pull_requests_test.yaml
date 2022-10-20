@@ -1,6 +1,7 @@
 name: pull_requests_test
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -9,7 +10,7 @@ env:
 
 jobs:
   release:
-    name: test
+    name: go-build-test-jobs
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -63,6 +64,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: wangyoucao577/go-release-action@master
         with:
+          release_tag : ${{ env.TEST_TAG }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
