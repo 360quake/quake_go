@@ -22,13 +22,13 @@ jobs:
         with:
           version: '1.29.2'
 
-      - name: Force Delete Release
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
-        with:
-          delete_release: true
-          tag_name: ${{ env.TEST_TAG }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Force Delete Release
+#        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+#        with:
+#          delete_release: true
+#          tag_name: ${{ env.TEST_TAG }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create/Update tag
         uses: rickstaa/action-create-tag@v1
