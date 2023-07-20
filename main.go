@@ -31,12 +31,13 @@ var (
 )
 
 func main() {
-	maxprocs.Set(maxprocs.Logger(func(string, ...any) {}))
+	_, _ = maxprocs.Set(maxprocs.Logger(func(string, ...any) {}))
+
 	action(hflagInit())
 }
 
 func hflagInit() (num int) {
-	successColor.Println("Starting Quake Cli...")
+	_, _ = successColor.Println("Starting Quake Cli...")
 	hflag.AddFlag("start", "-st to start number", hflag.Shorthand("st"), hflag.Type("string"), hflag.DefaultValue("0"))
 	hflag.AddFlag("size", "-sz to size number ", hflag.Shorthand("sz"), hflag.Type("string"), hflag.DefaultValue("10"))
 	hflag.AddFlag("ignore_cache", "-ic true or false,default false", hflag.Shorthand("ic"), hflag.Type("bool"), hflag.DefaultValue("false"))
@@ -51,7 +52,7 @@ func hflagInit() (num int) {
 	}
 	num = len(os.Args)
 	if num < 2 {
-		errorColor.Println("./quake -h get help!")
+		_, _ = errorColor.Println("./quake -h get help!")
 		os.Exit(0)
 	}
 	return
@@ -67,15 +68,15 @@ func action(num int) {
 	reqjson.Field = hflag.GetString("field")
 	reqjson.QueryTxt = hflag.GetString("file_txt")
 	if sizelen, _ := strconv.Atoi(reqjson.Size); sizelen > 50 {
-		errorColor.Println("size only less than or equal to 50")
+		_, _ = errorColor.Println("size only less than or equal to 50")
 		return
 	}
 	switch strings.ToLower(hflag.GetString("option")) {
 	case "version":
-		successColor.Printf("Clash %s %s %s with %s \n", "2.0.3", runtime.GOOS, runtime.GOARCH, runtime.Version())
+		_, _ = successColor.Printf("Clash %s %s %s with %s \n", "2.0.3", runtime.GOOS, runtime.GOARCH, runtime.Version())
 	case "init":
 		if num < 3 {
-			errorColor.Println("!!!!token is empty !!!!")
+			_, _ = errorColor.Println("!!!!token is empty !!!!")
 			return
 		}
 		utils.WriteYaml("./config.yaml", reqjson.Query)
@@ -86,12 +87,12 @@ func action(num int) {
 		}
 		info := utils.InfoGet(token.Token)
 		dataResult, userResult := utils.InfoLoadJson(info)
-		successColor.Println("#用户名:", userResult["username"])
-		successColor.Println("#邮  箱:", userResult["email"])
-		successColor.Println("#手机:", dataResult["mobile_phone"])
-		successColor.Println("#月度积分:", dataResult["month_remaining_credit"])
-		successColor.Println("#长效积分:", dataResult["constant_credit"])
-		successColor.Println("#Token:", dataResult["token"])
+		_, _ = successColor.Println("#用户名:", userResult["username"])
+		_, _ = successColor.Println("#邮  箱:", userResult["email"])
+		_, _ = successColor.Println("#手机:", dataResult["mobile_phone"])
+		_, _ = successColor.Println("#月度积分:", dataResult["month_remaining_credit"])
+		_, _ = successColor.Println("#长效积分:", dataResult["constant_credit"])
+		_, _ = successColor.Println("#Token:", dataResult["token"])
 	case "search":
 		token, status := utils.ReadYaml("./config.yaml")
 		if !status {
@@ -102,14 +103,16 @@ func action(num int) {
 		if reqjson.Field != "" && reqjson.Field != "ip,port" {
 			for index, value := range dataResult {
 				if value.Service.HTTP[reqjson.Field] == nil {
-					successColor.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + "  " + strconv.Itoa(value.Port))
+					_, _ = successColor.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + "  " + strconv.Itoa(value.Port))
+
 				} else {
-					successColor.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port) + "  " + value.Service.HTTP[reqjson.Field].(string))
+					_, _ = successColor.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port) + "  " + value.Service.HTTP[reqjson.Field].(string))
+
 				}
 			}
 		} else {
 			for index, value := range dataResult {
-				successColor.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port))
+				_, _ = successColor.Println(strconv.Itoa(index+1) + "# " + value.IP + ":" + strconv.Itoa(value.Port))
 			}
 		}
 	case "host":
@@ -120,7 +123,7 @@ func action(num int) {
 		body := utils.HostSearchPost(reqjson, token.Token)
 		dataResult := utils.RespLoadJson[utils.SearchJson](body).Data
 		for index, value := range dataResult {
-			successColor.Println(strconv.Itoa(index+1) + "# " + value.IP)
+			_, _ = successColor.Println(strconv.Itoa(index+1) + "# " + value.IP)
 		}
 	// case "favicon":
 	// 	fmt.Println("favicon相似度接口待完成。。。")
@@ -132,6 +135,6 @@ func action(num int) {
 	// case "domain":
 	// 	fmt.Println("domain ")
 	default:
-		errorColor.Println("args failed !!!!")
+		_, _ = errorColor.Println("args failed !!!!")
 	}
 }
